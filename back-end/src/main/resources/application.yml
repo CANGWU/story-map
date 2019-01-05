@@ -7,7 +7,7 @@ spring:
       username: root
       password: Xuan_root_123
       url: jdbc:mysql://cangwu.art:3306/story_map
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
     show-sql: true
