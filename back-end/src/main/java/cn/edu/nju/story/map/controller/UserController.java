@@ -32,7 +32,7 @@ public class UserController {
     }
 
 
-    @RequestMapping("/{userId}")
+    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public UserVO queryUserById(@PathVariable("userId") Long userId) {
 
         return userService.queryUserDetailByUserId(userId);
