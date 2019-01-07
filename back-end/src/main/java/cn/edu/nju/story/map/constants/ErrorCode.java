@@ -10,7 +10,7 @@ public class ErrorCode {
     /**
      * 出错
      */
-    public static final int Error = -1;
+    public static final int ERROR = -1;
     /**
      * 正常
      */
