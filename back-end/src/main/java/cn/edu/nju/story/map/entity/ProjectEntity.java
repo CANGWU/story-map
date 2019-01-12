@@ -9,44 +9,53 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import java.sql.Timestamp;
 
 /**
- * User
+ * Project
+ * 项目实体类
  * @author xuan
- * @create 2019-01-05 15:26
+ * @create 2019-01-12 12:36
  **/
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class UserEntity {
-
+@Table(name = "project")
+public class ProjectEntity {
 
     @Id
     @GeneratedValue
     private Long id;
 
     /**
-     * 用户名
+     * 项目名
      */
-    private String username;
+    private String name;
 
     /**
-     * 用户密码
+     * 创建用户Id
      */
-    private String password;
+    private String creatorId;
 
     /**
-     * 邮箱
+     * 项目描述
      */
-    private String email;
+    private String description;
 
     /**
-     * 手机号
+     * 创建时间
      */
-    private String phone;
+    private Timestamp createTime;
+
+    /**
+     * 项目状态
+     * {@link cn.edu.nju.story.map.constants.ProjectState}
+     */
+    private Integer state;
+
 
 
 }
