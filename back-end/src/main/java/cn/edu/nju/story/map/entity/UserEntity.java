@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
+ * User
  * @author xuan
  * @create 2019-01-05 15:26
  **/
@@ -46,10 +47,6 @@ public class UserEntity {
      * 手机号
      */
     private String phone;
-
-
-
-
 
 
 }
