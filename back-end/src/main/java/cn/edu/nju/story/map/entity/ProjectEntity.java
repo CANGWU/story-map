@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
@@ -35,10 +32,17 @@ public class ProjectEntity {
      */
     private String name;
 
+
+    /**
+     * 项目标识
+     */
+    private String sign;
+
     /**
      * 创建用户Id
      */
-    private String creatorId;
+    @Column(name = "creator_user_id")
+    private String creatorUserId;
 
     /**
      * 项目描述
@@ -48,6 +52,7 @@ public class ProjectEntity {
     /**
      * 创建时间
      */
+    @Column(name = "create_time")
     private Timestamp createTime;
 
     /**
