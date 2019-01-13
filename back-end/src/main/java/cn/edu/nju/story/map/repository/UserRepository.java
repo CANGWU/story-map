@@ -8,4 +8,8 @@ import org.springframework.data.repository.CrudRepository;
  * @create 2019-01-05 15:37
  **/
 public interface UserRepository extends CrudRepository<UserEntity, Long>{
+
+
+    boolean existsByEmail(String email);
+
 }

@@ -1,6 +1,7 @@
 package cn.edu.nju.story.map.service.impl;
 
 import cn.edu.nju.story.map.entity.UserEntity;
+import cn.edu.nju.story.map.exception.DefaultErrorException;
 import cn.edu.nju.story.map.form.CreateUserForm;
 import cn.edu.nju.story.map.repository.UserRepository;
 import cn.edu.nju.story.map.service.UserService;
@@ -24,7 +25,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public UserVO register(CreateUserForm createUserForm) {
 
-        UserEntity newUser = new UserEntity();
+
+        if(userRepository.existsByEmail(createUserForm.getEmail())){
+            throw new DefaultErrorException("")
+        }
+
         // 保存到数据库
         // TODO 2019-01-05 应该有一些规则检查
         BeanUtils.copyProperties(createUserForm, newUser);

@@ -44,9 +44,9 @@ public class UserEntity {
     private String email;
 
     /**
-     * 手机号
+     * 用户状态
      */
-    private String phone;
+    private Integer state;
 
 
 }

@@ -11,9 +11,9 @@ public interface UserService {
 
 
     /**
-     * 注册一个新的用户
+     * 注册一个新的用户,同时发送一封验证邮件
      * @param createUserForm
-     * @return
+     * @return 返回用户token
      */
     UserVO register(CreateUserForm createUserForm);
 
