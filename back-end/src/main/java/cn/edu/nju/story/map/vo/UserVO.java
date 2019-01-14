@@ -33,10 +33,6 @@ public class UserVO {
      */
     private String email;
 
-    /**
-     * 手机号
-     */
-    private String phone;
 
 
     public UserVO(UserEntity userEntity){

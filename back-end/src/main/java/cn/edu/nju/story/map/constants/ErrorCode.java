@@ -6,7 +6,7 @@ package cn.edu.nju.story.map.constants;
  * @author xuan
  * @date 2018/8/2
  */
-public class ErrorCode {
+public enum  ErrorCode {
     /**
      * 出错
      */
@@ -78,5 +78,19 @@ public class ErrorCode {
      */
     public static final int UNSUPPORTED_OPERATION_EXCEPTION = 2508;
 
+    /**
+     * 邮箱已注册
+     */
+    public static final int EMAIL_IS_REGISTERED = 1000;
+
+
+
+    private Integer code;
+    private String description;
+
+    private ErrorCode(Integer code, String description){
+        this.code = code;
+        this.description = description;
+    }
 
 }
