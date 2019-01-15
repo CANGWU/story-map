@@ -23,7 +23,7 @@ public class OvalValidatorUtils {
     public static void validate(Object form){
         List<ConstraintViolation> ret = VALIDATOR.validate(form);
         if(!CollectionUtils.isEmpty(ret)){
-            throw new DefaultErrorException(ErrorCode.BAD_REQUEST, JSON.toJSONString(ret));
+            throw new DefaultErrorException(ErrorCode.BAD_REQUEST);
         }
 
     }

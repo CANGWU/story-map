@@ -1,133 +1,119 @@
-<!DOCTYPE html[<!ENTITY nbsp "&#160;">]>
-<html lang="en">
+<!DOCTYPE>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; box-sizing: border-box; font-size: 14px; margin: 0;">
 <head>
-    <meta charset="UTF-8"/>
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<div id="dv_top">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="">
+<div bgcolor="#ffffff" marginheight="0" marginwidth="0">
+    <table style="width:100%!important;background-color:#ffffff!important" cellpadding="0" cellspacing="0" border="0">
         <tbody>
         <tr>
             <td>
-                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <table cellpadding="0" cellspacing="0" border="0"
+                       style="background-color:#20a0e9!important;width:100%!important;min-width:600px!important;margin:0 auto!important;border-bottom:2px solid #0080c9!important">
                     <tbody>
                     <tr>
-                        <td style="padding: 10px 0px; border-collapse: collapse;" align="center"><img src="https://cl.ly/2a16299daf3f/BottomRibbon-Peach.png" width="600" style="max-width: 1200px; display: block; width: 600px;" alt="" border="0" /></td>
+                        <td height="3"></td>
+                    </tr>
+                    <tr>
+                        <td valign="middle" style="padding:2px!important">
+                            <div style="width:80%!important;margin:0 auto!important;max-width:600px!important;text-align:center!important;font-family:arial!important;color:#fff!important;font-size:12px!important;line-height:12px!important">
+                                <!--<img src="${icon}">-->
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td height="3"></td>
                     </tr>
                     </tbody>
                 </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div id="dv_pic">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="">
-        <tbody>
-        <tr>
-            <td>
-                <table width="100%" cellspacing="0" cellpadding="0" border="0">
+                <table style="width:600px!important;margin:0 auto!important" cellpadding="0" cellspacing="0" align="center" border="0">
                     <tbody>
                     <tr>
-                        <td style="padding: 10px 0px; border-collapse: collapse;" align="center"><img src="https://cl.ly/159f7f2193c0/WechatIMG83.jpeg" width="600" style="max-width: 1200px; display: block; width: 600px;" alt="" border="0" /></td>
+                        <td height="30"></td>
                     </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div id="dv_title">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="">
-        <tbody>
-        <tr>
-            <td>
-                <table border="0" cellpadding="0" cellspacing="0" width="100%">
-                    <tbody>
                     <tr>
-                        <td class="tdPart" align="center" valign="top">
-                            <table name="tblText" style="float:left; background-color:transparent;" align="left" border="0" cellpadding="0" cellspacing="0" width="600" class="tblText">
+                        <td align="center" style="text-align:center!important;padding:0 10px!important">
+                            <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 auto!important">
                                 <tbody>
                                 <tr>
-                                    <td name="tblCell" style="padding: 10px 20px; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 400; color: rgb(56, 56, 56); text-align: left; word-break: break-word;" align="left" valign="top" class="tblCell">
-                                        <div style="line-height: 125%; text-align: center;">
-                                            <span style="font-size: 48px; font-family: Times New Roman,Times; color: #617c8b; line-height: 125%;"><em><strong>CGC南大校园行</strong></em></span>
-                                        </div>
+                                    <td valign="top" align="left"
+                                        style="font-size:24px!important;line-height:28px!important;font-family:arial!important;font-weight:bold!important;color:#000001!important">
+                                        请激活您的IStory平台账户
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="20"></td>
+                                </tr>
+                                <tr>
+                                    <td align="left" style="font-size:15px!important;line-height:20px!important;color:#333!important;font-family:arial!important">
+                                        请点击下面按钮确认
+                                        <a th:text="${email_address}" style="color:#20a0e9;text-decoration:none" target="_blank">你的邮箱</a>
+                                        作为登录邮箱地址并激活您的账户
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="30"></td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <table cellpadding="0" cellspacing="0"  border="0" width="100%" style="margin:0 auto!important">
+                                            <tbody>
+                                            <tr>
+                                                <td align="left">
+                                                    <table cellpadding="0" cellspacing="0" border="0" width="100%" height="50" bgcolor="#6BAE58"
+                                                           style="border-radius:5px!important;border-bottom:1px solid #000001!important">
+                                                        <tbody>
+                                                        <tr>
+                                                            <td valign="middle" align="center" height="50" style="height:50px!important;width:100%!important">
+                                                                <a th:href="${confirm_url}"
+                                                                   style="color:#ffffff!important;text-decoration:underline!important;font-family:arial!important;font-size:18px!important;font-weight:bold!important;display:block!important;width:100%!important;vertical-align:middle!important;line-height:18px!important;padding-top:16px!important;padding-bottom:16px!important"
+                                                                   target="_blank">
+                                                                    激活账户
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="10"></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td height="10"></td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 auto!important">
+                                            <tbody>
+                                            <tr>
+                                                <td width="100%" align="center">
+                                                    <div style="font-size:12px!important;line-height:16px!important;text-align:center!important;font-family:arial!important;color:#333!important">
+                                                        如果您没有创建过IStory平台账户，请忽略这封邮件
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
                                     </td>
                                 </tr>
                                 </tbody>
                             </table>
                         </td>
                     </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div id="dv_content">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="">
-        <tbody>
-        <tr>
-            <td align="center" name="bmeBoxContainer" style="padding-left:20px; padding-right:20px; padding-top:0px; padding-bottom:0px;">
-                <table cellspacing="0" cellpadding="0" width="100%" name="tblText" class="tblText" border="0">
-                    <tbody>
                     <tr>
-                        <td valign="top" align="left" style="padding: 20px; font-family:Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; color: #383838;background-color:rgba(0, 0, 0, 0); border-collapse: collapse;" name="tblCell" class="tblCell">
-                            <div style="line-height: 200%; text-align: left;">
-                                <span style="font-size: 18px; line-height: 200%;" id="receiveName" ></span>
-                                <br/>
-                                <span style="font-size: 16px; font-family: Helvetica,Calibri,Arial,sans-serif; color: #aeaeae; line-height: 200%;">
-   &nbsp;&nbsp;您好！我是南京大学Coding Girls Club教练管理员黄迪璇。
-   我们诚挚邀请您以教练员身份参与11月4日位于南京大学仙林校区举办的GCD活动！
-   Coding Girls Club致力于成为链接女性与科技世界、女性与当地社区、女性与科技公司的桥梁。
-   在本次活动中，我们将以“Python爬虫”为主题，努力引导参与活动的学员了解编程的魅力，引发她们内在的数字原力。
-   再次诚挚邀请您以教练员身份参与到本次活动中，和我们一起搭建链接女性与科技世界、女性与当地社区、女性与科技公司的桥梁。
-   如果您有意愿参与本次活动，请回复该邮件，我们会及时与您联系！
-   南大CGC期待您的到来！</span>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table></td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div id="dv_link">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="">
-        <tbody>
-        <tr>
-            <td align="center" name="bmeBoxContainer" style="padding-left:20px; padding-right:20px; padding-top:5px; padding-bottom:5px;">
-                <table cellspacing="0" cellpadding="0" width="100%" name="tblText" class="tblText" border="0">
-                    <tbody>
-                    <tr>
-                        <td valign="top" align="left" style="padding: 20px; font-family:Arial, Helvetica, sans-serif; font-weight: normal; font-size: 14px; color: #383838;background-color:rgba(0, 0, 0, 0); border-collapse: collapse;" name="tblCell" class="tblCell">
-                            <div style="line-height: 150%; text-align: left;">
-                                <span style="font-size: 20px; font-family: Times New Roman,Times; color: #617c8b; line-height: 150%;"><a href="https://mp.weixin.qq.com/s/UC25mtIEIljb1fGwWvJ_Vg"><em>活动详情链接请点击</em></a></span>
-                                <br />
-                                <span style="font-size: 12px; font-family: Helvetica,Calibri,Arial,sans-serif; color: #617c8b; line-height: 150%;">@CGC南大</span>
-                            </div></td>
-                    </tr>
-                    </tbody>
-                </table>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-<div id="dv_bottom">
-    <table border="0" cellpadding="0" cellspacing="0" width="600" style="">
-        <tbody>
-        <tr>
-            <td>
-                <table width="100%" cellspacing="0" cellpadding="0" border="0">
-                    <tbody>
-                    <tr>
-                        <td style="padding: 10px 0px; border-collapse: collapse;" align="center"><img src="https://cl.ly/2a16299daf3f/BottomRibbon-Peach.png" width="600" style="max-width: 1200px; display: block; width: 600px;" alt="" border="0" /></td>
+                        <td height="20"></td>
                     </tr>
                     </tbody>
                 </table>

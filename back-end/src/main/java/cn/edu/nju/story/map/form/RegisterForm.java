@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  **/
 
 @Data
-public class CreateUserForm {
+public class RegisterForm {
 
 
     /**
@@ -26,8 +26,6 @@ public class CreateUserForm {
     /**
      * 密码
      */
-    @NotBlank
-    @NotNull
     private String password;
 
     /**
@@ -38,14 +36,6 @@ public class CreateUserForm {
     @MatchPattern(message = "Not Email!",  pattern = "^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$")
     private String email;
 
-
-    public static void main(String[]args){
-
-        System.out.println(Pattern.matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$", "1533704796@qq.com"));
-
-
-
-    }
 
 
 }

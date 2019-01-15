@@ -12,7 +12,25 @@ spring:
     hibernate:
       ddl-auto: update
 
+  mail:
+    port: 465
+    password: idgxcavveinkbaeb
+    username: 1533704796@qq.com
+    host: smtp.qq.com
+    protocol: smtp
+    properties:
+      subject: IStory-用户验证
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: trye
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
+
 server:
   port: 9000
+  url: http://cangwu.art:9000
+
 
 

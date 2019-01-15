@@ -1,87 +1,107 @@
 package cn.edu.nju.story.map.constants;
 
+import lombok.Getter;
+
+import java.util.Objects;
+
 /**
  * ErrorCode
  *
  * @author xuan
  * @date 2018/8/2
  */
+@Getter
 public enum  ErrorCode {
     /**
      * 出错
      */
-    public static final int ERROR = -1;
+    ERROR(-1, "出错"),
     /**
      * 正常
      */
-    public static final int OK = 0;
+    OK(0, "正常"),
     /**
      * 参数错误
      */
-    public static final int BAD_REQUEST = 400;
+    BAD_REQUEST(400, "参数错误"),
     /**
      * 未登录
      */
-    public static final int UNAUTHORIZED = 401;
+    UNAUTHORIZED(401,"未登录"),
     /**
      * 操作没有权限
      */
 
-    public static final int FORBIDDEN = 403;
+    FORBIDDEN(403,"没有操作权限"),
     /**
      * 服务器出错
      */
-    public static final int SERVER_ERROR = 500;
+    SERVER_ERROR(500, "服务器出错"),
     /**
      * 普通异常
      */
-    public static final int CATCH_EXCEPTION = 2500;
+    CATCH_EXCEPTION(2500, "普通异常"),
     /**
      * 数据库异常
      */
-    public static final int DATA_BASE_EXCEPTION = 2600;
+    DATA_BASE_EXCEPTION(2600, "数据库异常"),
     /**
      * 搜索异常
      */
-    public static final int SEARCH_EXCEPTION = 2700;
+    SEARCH_EXCEPTION(2700, "搜索异常"),
     /**
      * 空指针
      */
-    public static final int NP_EXCEPTION = 2501;
+    NP_EXCEPTION(2501, "空指针"),
     /**
      * 类型强制转换异常
      */
-
-    public static final int CLASS_CAST_EXCEPTION = 2502;
+    CLASS_CAST_EXCEPTION(2502, "类型强制转换异常"),
     /**
      * 传递非法参数异常
      */
-    public static final int ILLEGAL_ARGUMENT_EXCEPTION = 2503;
+    ILLEGAL_ARGUMENT_EXCEPTION(2503, "传递非法参数异常"),
     /**
      * 算术运算异常
      */
-    public static final int ARITHMETIC_EXCEPTION = 2504;
+    ARITHMETIC_EXCEPTION(2504, "算术运算异常"),
     /**
      * 数组存储对象不兼容异常
      */
-    public static final int ARRAY_STORE_EXCEPTION = 2505;
+    ARRAY_STORE_EXCEPTION(2505, "数组存储对象不兼容异常"),
     /**
      * 下标越界异常
      */
-    public static final int INDEX_OUT_OF_BOUNDS_EXCEPTION = 2506;
+    INDEX_OUT_OF_BOUNDS_EXCEPTION(2506, "下标越界异常"),
     /**
      * 安全异常
      */
-    public static final int SECURITY_EXCEPTION = 2507;
+    SECURITY_EXCEPTION(2507, "安全异常"),
     /**
      * 不支持的操作异常
      */
-    public static final int UNSUPPORTED_OPERATION_EXCEPTION = 2508;
+    UNSUPPORTED_OPERATION_EXCEPTION(2508, "不支持的操作异常"),
 
     /**
      * 邮箱已注册
      */
-    public static final int EMAIL_IS_REGISTERED = 1000;
+    EMAIL_IS_REGISTERED(1000, "邮箱已注册"),
+
+    /**
+     * 邀请码无效
+     */
+    INVALID_INVITATION_CODE(1001, "邀请码无效"),
+
+    /**
+     * 用户不存在
+     */
+    USER_NOT_EXIST(1002, "用户不存在"),
+
+
+    /**
+     * 用户名或者密码错误
+     */
+    USERNAME_OR_PASSWORD_ERROR(1003, "用户名或者密码错误");
 
 
 
@@ -91,6 +111,20 @@ public enum  ErrorCode {
     private ErrorCode(Integer code, String description){
         this.code = code;
         this.description = description;
+    }
+
+
+    public static ErrorCode getInstance(Integer code){
+
+        for(ErrorCode errorCode : ErrorCode.values()){
+
+            if(Objects.equals(errorCode.code, code)){
+                return errorCode;
+            }
+
+        }
+        return ERROR;
+
     }
 
 }
