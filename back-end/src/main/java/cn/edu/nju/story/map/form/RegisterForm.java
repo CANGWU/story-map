@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  **/
 
 @Data
-public class CreateUserForm {
+public class RegisterForm {
 
 
     /**
@@ -26,8 +26,6 @@ public class CreateUserForm {
     /**
      * 密码
      */
-    @NotBlank
-    @NotNull
     private String password;
 
     /**

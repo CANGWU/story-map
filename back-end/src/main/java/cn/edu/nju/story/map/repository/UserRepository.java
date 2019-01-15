@@ -10,6 +10,18 @@ import org.springframework.data.repository.CrudRepository;
 public interface UserRepository extends CrudRepository<UserEntity, Long>{
 
 
+    /**
+     * 邮箱是否已存在
+     * @param email
+     * @return
+     */
     boolean existsByEmail(String email);
+
+    /**
+     * 根据邮箱查找用户
+     * @param email
+     * @return
+     */
+    UserEntity findByEmail(String email);
 
 }
