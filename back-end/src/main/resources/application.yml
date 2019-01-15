@@ -13,9 +13,21 @@ spring:
       ddl-auto: update
 
   mail:
-    port:
-    password:
-    host: 
+    port: 465
+    password: 
+    username: 1533704796@qq.com
+    host: smtp.qq.com
+    protocol: smtp
+    properties:
+      from: IStory管理员
+      subject: IStory-用户验证
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: trye
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
 
 server:
   port: 9000
