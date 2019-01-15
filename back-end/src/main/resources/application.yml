@@ -12,7 +12,13 @@ spring:
     hibernate:
       ddl-auto: update
 
+  mail:
+    port:
+    password:
+    host: 
+
 server:
   port: 9000
+
 
 

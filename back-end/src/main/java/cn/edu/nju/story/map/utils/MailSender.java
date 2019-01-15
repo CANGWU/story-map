@@ -121,8 +121,6 @@ public class MailSender {
             mailSender.prop.setProperty("mail.smtp.port", mailSender.port);
             mailSender.prop.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 
-
-
             mailSender.session = Session.getInstance(mailSender.prop);
             mailSender.msg = new MimeMessage(mailSender.session);
             mailSender.transport = mailSender.session.getTransport();

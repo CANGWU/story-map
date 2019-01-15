@@ -45,6 +45,7 @@ public class UserEntity {
 
     /**
      * 用户状态
+     * {@link cn.edu.nju.story.map.constants.UserState}
      */
     private Integer state;
 
