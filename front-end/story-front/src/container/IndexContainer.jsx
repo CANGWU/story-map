@@ -4,10 +4,11 @@ import styles from './IndexContainer.scss'
 
 class IndexContainer extends React.Component{
     state = {
-        ifLogin: false,
+        ifLogin: true,
     }
     render(){
         if (!this.state.ifLogin){
+            console.log('redirect')
             return <Redirect to={{ pathname: "/login" }}/>
         }
         return <div className={styles.indexContainer}>
