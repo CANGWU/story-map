@@ -18,7 +18,7 @@ public class InvitationCodeServiceImpl implements InvitationCodeService {
 
     @Override
     public String generateInvitationCode(Long userId) {
-        return null;
+        return "OK!";
     }
 
     @Override

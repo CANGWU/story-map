@@ -39,13 +39,5 @@ public class CreateUserForm {
     private String email;
 
 
-    public static void main(String[]args){
-
-        System.out.println(Pattern.matches("^([a-z0-9A-Z]+[-|\\.]?)+[a-z0-9A-Z]@([a-z0-9A-Z]+(-[a-z0-9A-Z]+)?\\.)+[a-zA-Z]{2,}$", "1533704796@qq.com"));
-
-
-
-    }
-
 
 }
