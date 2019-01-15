@@ -14,12 +14,12 @@ spring:
 
   mail:
     port: 465
-    password: 
+    password: idgxcavveinkbaeb
     username: 1533704796@qq.com
     host: smtp.qq.com
     protocol: smtp
     properties:
-      from: IStory管理员
+      from: 1533704796@qq.com
       subject: IStory-用户验证
       mail:
         smtp:
