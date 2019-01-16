@@ -41,4 +41,14 @@ public class JwtGenerator {
         return JwtHelper.decodeAndVerify(jwt, SIGNER).getClaims();
     }
 
+
+    public static void main(String[]args){
+
+        String jwt = "fdafasa";
+
+        System.out.println(JwtGenerator.verifyJwt(jwt));
+
+
+    }
+
 }
