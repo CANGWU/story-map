@@ -7,13 +7,11 @@ import 'antd/dist/antd.css'
 class App extends Component {
   renderRouter(){
     return <Router>
-      <div>
         <Switch>
             <Route path="/login" component={LoginContainer}/>
             <Route path="/index" component={IndexContainer}/>
             <Redirect exact from="/" to="/login"/>
         </Switch>
-      </div>
     </Router>
   }
   render() {
