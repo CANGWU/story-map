@@ -19,7 +19,6 @@ spring:
     host: smtp.qq.com
     protocol: smtp
     properties:
-      from: 1533704796@qq.com
       subject: IStory-用户验证
       mail:
         smtp:
@@ -31,6 +30,7 @@ spring:
 
 server:
   port: 9000
+  url: http://cangwu.art:9000
 
 
 

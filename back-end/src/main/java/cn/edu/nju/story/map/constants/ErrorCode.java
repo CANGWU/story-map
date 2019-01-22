@@ -85,7 +85,23 @@ public enum  ErrorCode {
     /**
      * 邮箱已注册
      */
-    EMAIL_IS_REGISTERED(1000, "邮箱已注册");
+    EMAIL_IS_REGISTERED(1000, "邮箱已注册"),
+
+    /**
+     * 邀请码无效
+     */
+    INVALID_INVITATION_CODE(1001, "邀请码无效"),
+
+    /**
+     * 用户不存在
+     */
+    USER_NOT_EXIST(1002, "用户不存在"),
+
+
+    /**
+     * 用户名或者密码错误
+     */
+    USERNAME_OR_PASSWORD_ERROR(1003, "用户名或者密码错误");
 
 
 

@@ -4,15 +4,18 @@ import cn.edu.nju.story.map.constants.ErrorCode;
 import cn.edu.nju.story.map.constants.UserState;
 import cn.edu.nju.story.map.entity.UserEntity;
 import cn.edu.nju.story.map.exception.DefaultErrorException;
-import cn.edu.nju.story.map.form.CreateUserForm;
+import cn.edu.nju.story.map.form.RegisterForm;
 import cn.edu.nju.story.map.repository.UserRepository;
 import cn.edu.nju.story.map.service.MailService;
 import cn.edu.nju.story.map.service.UserService;
+import cn.edu.nju.story.map.utils.JwtGenerator;
 import cn.edu.nju.story.map.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -23,12 +26,14 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    MailService mailService;
+    private MailService mailService;
+
+    private JwtHelper jwtHelper;
 
     @Override
-    public UserVO register(CreateUserForm createUserForm) {
+    public UserVO register(RegisterForm createUserForm) {
 
 
         if(userRepository.existsByEmail(createUserForm.getEmail())){
@@ -37,7 +42,6 @@ public class UserServiceImpl implements UserService{
 
         UserEntity newUser = new UserEntity();
         // 保存到数据库
-        // TODO 2019-01-05 应该有一些规则检查
         BeanUtils.copyProperties(createUserForm, newUser);
         newUser.setState(UserState.VERIFYING.getState());
         newUser = userRepository.save(newUser);
@@ -56,4 +60,28 @@ public class UserServiceImpl implements UserService{
         return userOptional.map(UserVO::new).orElse(null);
 
     }
+
+
+    @Override
+    public String login(String email, String password){
+
+
+        UserEntity user = userRepository.findByEmail(email);
+
+        if(Objects.isNull(user)){
+            throw new DefaultErrorException(ErrorCode.USER_NOT_EXIST);
+        }
+
+        if(Objects.equals(password, user.getPassword())){
+
+            return JwtGenerator.generateJwtString(user.getId().toString());
+        }
+
+        throw new DefaultErrorException(ErrorCode.USERNAME_OR_PASSWORD_ERROR);
+
+    }
+
+
+
+
 }

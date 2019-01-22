@@ -1,16 +1,12 @@
 package cn.edu.nju.story.map.controller;
 
-import cn.edu.nju.story.map.form.CreateUserForm;
+import cn.edu.nju.story.map.form.RegisterForm;
+import cn.edu.nju.story.map.form.LoginForm;
 import cn.edu.nju.story.map.service.UserService;
 import cn.edu.nju.story.map.utils.OvalValidatorUtils;
 import cn.edu.nju.story.map.vo.UserVO;
-import com.alibaba.fastjson.JSON;
-import net.sf.oval.ConstraintViolation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 /**
  * @author xuan
@@ -25,7 +21,7 @@ public class UserController {
     UserService userService;
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public UserVO register(@RequestBody CreateUserForm createUserForm){
+    public UserVO register(@RequestBody RegisterForm createUserForm){
 
         OvalValidatorUtils.validate(createUserForm);
         return userService.register(createUserForm);
@@ -36,6 +32,13 @@ public class UserController {
     public UserVO queryUserById(@PathVariable("userId") Long userId) {
 
         return userService.queryUserDetailByUserId(userId);
+    }
+
+
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@RequestBody LoginForm loginForm){
+
+        return userService.login(loginForm.getEmail(), loginForm.getPassword());
     }
 
 

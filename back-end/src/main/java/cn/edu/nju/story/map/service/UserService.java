@@ -1,6 +1,6 @@
 package cn.edu.nju.story.map.service;
 
-import cn.edu.nju.story.map.form.CreateUserForm;
+import cn.edu.nju.story.map.form.RegisterForm;
 import cn.edu.nju.story.map.vo.UserVO;
 
 /**
@@ -15,7 +15,7 @@ public interface UserService {
      * @param createUserForm
      * @return 返回用户token
      */
-    UserVO register(CreateUserForm createUserForm);
+    UserVO register(RegisterForm createUserForm);
 
     /**
      * 根据userId获取用户详细信息
@@ -24,4 +24,12 @@ public interface UserService {
      */
     UserVO queryUserDetailByUserId(Long userId);
 
+
+    /**
+     * 用户登录，返回令牌
+     * @param email
+     * @param password
+     * @return
+     */
+    String login(String email, String password);
 }
