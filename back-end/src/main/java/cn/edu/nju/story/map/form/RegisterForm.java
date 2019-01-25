@@ -26,6 +26,8 @@ public class RegisterForm {
     /**
      * 密码
      */
+    @NotBlank
+    @NotNull
     private String password;
 
     /**
