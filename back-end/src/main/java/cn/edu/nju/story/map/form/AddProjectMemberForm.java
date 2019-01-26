@@ -8,10 +8,16 @@ package cn.edu.nju.story.map.form;
  */
 public class AddProjectMemberForm {
 
+
+    /**
+     * 用户Id
+     */
     private Long userId;
 
 
-
+    /**
+     * 用户所属权限组
+     */
     private Integer privilegeGroup;
 
 
