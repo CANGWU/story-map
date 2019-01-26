@@ -12,4 +12,12 @@ public interface MailService {
      */
     void sendInvitation(Long userId, String username, String email);
 
+
+    /**
+     * 验证登录邮箱
+     * @param code
+     * @return
+     */
+    boolean verifyInvitationMail(String code);
+
 }

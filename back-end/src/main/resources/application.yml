@@ -3,8 +3,8 @@ spring:
     name: story-map
   datasource:
       username: root
-      password: Xuan_root_123
-      url: jdbc:mysql://cangwu.art:3306/story_map
+      password: xuan
+      url: jdbc:mysql://localhost:3306/story_map
       driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     database: mysql
@@ -19,6 +19,7 @@ spring:
     host: smtp.qq.com
     protocol: smtp
     properties:
+      from: 1533704796@qq.com
       subject: IStory-用户验证
       mail:
         smtp:
@@ -30,7 +31,6 @@ spring:
 
 server:
   port: 9000
-  url: http://cangwu.art:9000
 
 
 

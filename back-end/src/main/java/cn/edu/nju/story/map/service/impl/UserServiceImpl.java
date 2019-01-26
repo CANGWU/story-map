@@ -9,9 +9,13 @@ import cn.edu.nju.story.map.repository.UserRepository;
 import cn.edu.nju.story.map.service.MailService;
 import cn.edu.nju.story.map.service.UserService;
 import cn.edu.nju.story.map.utils.JwtGenerator;
+import cn.edu.nju.story.map.vo.PageableVO;
 import cn.edu.nju.story.map.vo.UserVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Service;
 
@@ -30,11 +34,8 @@ public class UserServiceImpl implements UserService{
     @Autowired
     private MailService mailService;
 
-    private JwtHelper jwtHelper;
-
     @Override
     public UserVO register(RegisterForm createUserForm) {
-
 
         if(userRepository.existsByEmail(createUserForm.getEmail())){
             throw new DefaultErrorException(ErrorCode.EMAIL_IS_REGISTERED);
@@ -49,7 +50,9 @@ public class UserServiceImpl implements UserService{
         // 发送一封邀请邮件
         mailService.sendInvitation(newUser.getId(), newUser.getUsername(), newUser.getEmail());
 
-        return new UserVO(newUser);
+        // 返回用户信息和用户token
+
+        return new UserVO(newUser, JwtGenerator.generateJwtString(newUser.getId().toString()));
     }
 
     @Override
@@ -71,7 +74,6 @@ public class UserServiceImpl implements UserService{
         if(Objects.isNull(user)){
             throw new DefaultErrorException(ErrorCode.USER_NOT_EXIST);
         }
-
         if(Objects.equals(password, user.getPassword())){
 
             return JwtGenerator.generateJwtString(user.getId().toString());
@@ -81,7 +83,13 @@ public class UserServiceImpl implements UserService{
 
     }
 
+    @Override
+    public Page<UserVO> queryUserByEmail(String email, PageableVO pageable) {
 
+        Pageable p = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
+
+        return userRepository.findByEmailIsLike(email, p).map(UserVO::new);
+    }
 
 
 }

@@ -1,12 +1,14 @@
 package cn.edu.nju.story.map.form;
 
+import lombok.Data;
+
 /**
- * AddProjectMemberForm
- *
+ * 邀请项目成员表单
  * @author xuan
- * @date 2019-01-17
- */
-public class AddProjectMemberForm {
+ * @create 2019-01-22 23:06
+ **/
+@Data
+public class InvitationProjectMemberForm {
 
 
     /**
@@ -17,8 +19,10 @@ public class AddProjectMemberForm {
 
     /**
      * 用户所属权限组
+     * {@link cn.edu.nju.story.map.constants.PrivilegeGroup}
      */
     private Integer privilegeGroup;
+
 
 
 }

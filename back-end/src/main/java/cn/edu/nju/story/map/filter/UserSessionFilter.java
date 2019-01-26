@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
 
+import static cn.edu.nju.story.map.utils.UserIdUtils.USER_ID_PARAMETER_NAME;
+
 /**
  * UserSessionFilter
  *
@@ -46,7 +48,7 @@ public class UserSessionFilter implements Filter {
             }else {
                 try{
                     String userId = JwtGenerator.verifyJwt(jwt);
-                    request.setAttribute("current_user_id", userId);
+                    request.setAttribute(USER_ID_PARAMETER_NAME, userId);
                 }catch (Exception ignore){
                     throw new DefaultErrorException(ErrorCode.UNAUTHORIZED);
                 }

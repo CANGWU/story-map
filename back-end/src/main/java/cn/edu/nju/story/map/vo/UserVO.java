@@ -1,6 +1,7 @@
 package cn.edu.nju.story.map.vo;
 
 import cn.edu.nju.story.map.entity.UserEntity;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -33,6 +34,19 @@ public class UserVO {
      */
     private String email;
 
+
+    /**
+     * token
+     */
+    @ApiModelProperty("用户token")
+    private String token;
+
+
+
+    public UserVO(UserEntity userEntity, String token){
+        BeanUtils.copyProperties(userEntity, this, "password");
+        this.token = token;
+    }
 
 
     public UserVO(UserEntity userEntity){
