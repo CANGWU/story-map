@@ -1,5 +1,10 @@
 package cn.edu.nju.story.map.service.impl;
 
+import cn.edu.nju.story.map.constants.ErrorCode;
+import cn.edu.nju.story.map.constants.UserState;
+import cn.edu.nju.story.map.entity.UserEntity;
+import cn.edu.nju.story.map.exception.DefaultErrorException;
+import cn.edu.nju.story.map.repository.UserRepository;
 import cn.edu.nju.story.map.service.InvitationCodeService;
 import cn.edu.nju.story.map.service.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +23,8 @@ import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author xuan
@@ -30,6 +37,9 @@ public class MailServiceImpl implements MailService {
 
     @Autowired
     JavaMailSender javaMailSender;
+
+    @Autowired
+    UserRepository userRepository;
 
     @Value("${server.url}")
     private String serverUrl;
@@ -68,6 +78,29 @@ public class MailServiceImpl implements MailService {
         } catch (MessagingException ignore) {
         }
 
+    }
+
+    @Override
+    public boolean verifyInvitationMail(String code) {
+
+        Long userId = invitationCodeService.consumeInvitationCode(code);
+
+        Optional<UserEntity> userEntityOptional = userRepository.findById(userId);
+
+
+        if(userEntityOptional.isPresent()){
+
+            UserEntity userEntity = userEntityOptional.get();
+            if(!Objects.equals(userEntity.getState(), UserState.OK.getState())){
+                userEntity.setState(UserState.OK.getState());
+                userRepository.save(userEntity);
+            }
+        }else {
+            throw new DefaultErrorException(ErrorCode.USER_NOT_EXIST);
+        }
+
+
+        return true;
     }
 
 

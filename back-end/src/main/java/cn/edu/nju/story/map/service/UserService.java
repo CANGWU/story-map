@@ -1,7 +1,9 @@
 package cn.edu.nju.story.map.service;
 
 import cn.edu.nju.story.map.form.RegisterForm;
+import cn.edu.nju.story.map.vo.PageableVO;
 import cn.edu.nju.story.map.vo.UserVO;
+import org.springframework.data.domain.Page;
 
 /**
  * @author xuan
@@ -32,4 +34,14 @@ public interface UserService {
      * @return
      */
     String login(String email, String password);
+
+
+    /**
+     *  根据邮箱分页查找用户
+     * @param email
+     * @param pageable
+     * @return
+     */
+    Page<UserVO> queryUserByEmail(String email, PageableVO pageable);
+
 }
