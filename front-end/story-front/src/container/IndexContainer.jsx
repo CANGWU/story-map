@@ -4,6 +4,8 @@ import styles from './IndexContainer.scss'
 import { Icon, Dropdown, Input } from 'antd'
 import indexBg from '../resource/img/indexBg.png'
 import ProjectContainer from './ProjectContainer'
+import CreateProjectContainer from './CreateProjectContainer'
+
 
 class IndexContainer extends React.Component{
     state = {
@@ -19,7 +21,7 @@ class IndexContainer extends React.Component{
                 <div className={styles.pRow}>项目2</div>
                 <div className={styles.pRow}>项目3</div>
             </div>
-            <div className={styles.addBtn}>
+            <div className={styles.addBtn} onClick={() => { this.props.history.push('/index/create'); this.setState({ showProjectPopover: false })}}>
                 +新建项目
             </div>
         </div>)
@@ -67,7 +69,7 @@ class IndexContainer extends React.Component{
                 </div>
             </div>
             <div className={styles.content} style={{ backgroundImage: 'url(' + indexBg + ')' }} >
-                <ProjectContainer/>
+                <Route path="/index" component={ProjectContainer}/>
             </div>
         </div>
     }
