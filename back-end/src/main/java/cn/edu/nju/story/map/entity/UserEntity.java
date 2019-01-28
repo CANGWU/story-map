@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * User
@@ -20,7 +17,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = {@UniqueConstraint(columnNames = "email")})
 public class UserEntity {
 
 
@@ -41,12 +38,14 @@ public class UserEntity {
     /**
      * 邮箱
      */
+
     private String email;
 
     /**
-     * 手机号
+     * 用户状态
+     * {@link cn.edu.nju.story.map.constants.UserState}
      */
-    private String phone;
+    private Integer state;
 
 
 }

@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "project")
+@Table(name = "project", uniqueConstraints = {@UniqueConstraint(columnNames = "sign")})
 public class ProjectEntity {
 
     @Id
@@ -42,7 +42,7 @@ public class ProjectEntity {
      * 创建用户Id
      */
     @Column(name = "creator_user_id")
-    private String creatorUserId;
+    private Long creatorUserId;
 
     /**
      * 项目描述

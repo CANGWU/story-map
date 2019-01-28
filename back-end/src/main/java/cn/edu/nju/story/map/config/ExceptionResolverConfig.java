@@ -59,7 +59,7 @@ public class ExceptionResolverConfig extends SimpleMappingExceptionResolver {
         } else if(ex instanceof AccessDeniedException) {
             map.put("code", ErrorCode.FORBIDDEN);
         } else if(ex instanceof DefaultErrorException) {
-            map.put("code", ((DefaultErrorException) ex).getCode());
+            map.put("code", ((DefaultErrorException) ex).getErrorCode());
         } else {
             map.put("code", ErrorCode.CATCH_EXCEPTION);
         }
