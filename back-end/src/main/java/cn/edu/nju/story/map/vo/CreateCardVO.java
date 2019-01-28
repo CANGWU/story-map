@@ -12,6 +12,12 @@ import lombok.Data;
  */
 @Data
 public class CreateCardVO {
+
+
+
+
+
+
     public CreateCardVO(CreateCardForm createCardForm) {
 
         BeanUtils.copyProperties(createCardForm, this);

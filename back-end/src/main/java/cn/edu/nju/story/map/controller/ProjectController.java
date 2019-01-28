@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
  * @date 2019-01-16
  */
 
-@RestController("/project")
+@RestController
+@RequestMapping("/project")
 public class ProjectController {
 
 

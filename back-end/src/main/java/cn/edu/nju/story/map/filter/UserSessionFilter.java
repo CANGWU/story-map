@@ -27,7 +27,7 @@ public class UserSessionFilter implements Filter {
 
 
      private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/user/register", "/user/login")));
+            Arrays.asList("/user/register", "/user/login", "/swagger-ui.html")));
 
 
 
