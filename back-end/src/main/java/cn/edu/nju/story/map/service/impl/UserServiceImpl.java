@@ -8,15 +8,14 @@ import cn.edu.nju.story.map.form.RegisterForm;
 import cn.edu.nju.story.map.repository.UserRepository;
 import cn.edu.nju.story.map.service.MailService;
 import cn.edu.nju.story.map.service.UserService;
+import cn.edu.nju.story.map.utils.BeanUtils;
 import cn.edu.nju.story.map.utils.JwtGenerator;
 import cn.edu.nju.story.map.vo.PageableVO;
 import cn.edu.nju.story.map.vo.UserVO;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

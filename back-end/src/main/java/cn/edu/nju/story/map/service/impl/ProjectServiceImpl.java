@@ -28,7 +28,7 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public boolean modifyProject(Long userId, ModifyProjectVO modifyProjectVO) {
+    public boolean modifyProject(Long userId, Long projectId, ModifyProjectVO modifyProjectVO) {
         return false;
     }
 

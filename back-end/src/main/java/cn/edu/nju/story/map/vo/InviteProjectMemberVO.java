@@ -1,8 +1,8 @@
 package cn.edu.nju.story.map.vo;
 
-import cn.edu.nju.story.map.form.InvitationProjectMemberForm;
+import cn.edu.nju.story.map.form.InviteProjectMemberForm;
+import cn.edu.nju.story.map.utils.BeanUtils;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 
 /**
  * InvitationProjectMemberFormVO
@@ -12,7 +12,7 @@ import org.springframework.beans.BeanUtils;
  */
 
 @Data
-public class InvitationProjectMemberVO {
+public class InviteProjectMemberVO {
 
 
     /**
@@ -28,7 +28,7 @@ public class InvitationProjectMemberVO {
     private Integer privilegeGroup;
 
 
-    public InvitationProjectMemberVO(InvitationProjectMemberForm form){
+    public InviteProjectMemberVO(InviteProjectMemberForm form){
         BeanUtils.copyProperties(form, this);
     }
 

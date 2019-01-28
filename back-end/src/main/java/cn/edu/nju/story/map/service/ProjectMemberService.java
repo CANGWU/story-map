@@ -1,9 +1,6 @@
 package cn.edu.nju.story.map.service;
 
-import cn.edu.nju.story.map.vo.InvitationProjectMemberVO;
-import cn.edu.nju.story.map.vo.ProjectInvitationVO;
-import cn.edu.nju.story.map.vo.ProjectMembersVO;
-import cn.edu.nju.story.map.vo.ProjectMemebrVO;
+import cn.edu.nju.story.map.vo.*;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -37,9 +34,10 @@ public interface ProjectMemberService {
     /**
      * 获取我的项目邀请
      * @param userId
+     * @param pageable
      * @return
      */
-    Page<ProjectInvitationVO> queryMyProjectInvitation(Long userId);
+    Page<ProjectInvitationVO> queryMyProjectInvitation(Long userId, PageableVO pageable);
 
 
     /**
@@ -49,21 +47,23 @@ public interface ProjectMemberService {
      * @param newMemberList
      * @return
      */
-    boolean invitationProjectMember(Long userId, Long projectId, List<InvitationProjectMemberVO> newMemberList);
+    boolean inviteProjectMember(Long userId, Long projectId, List<InviteProjectMemberVO> newMemberList);
 
 
     /**
      * 获取项目的参与者
      * @param projectId
+     * @param userId
      * @return
      */
-    ProjectMembersVO queryProjectMembers(Long projectId);
+    ProjectMembersVO queryProjectMembers(Long userId, Long projectId);
 
     /**
      * 获取邀请中的项目参与者
      * @param projectId
+     * @param userId
      * @return
      */
-    List<ProjectMemebrVO> queryInvitationProjectMembers(Long projectId);
+    List<ProjectMemebrVO> queryInvitingProjectMembers(Long userId, Long projectId);
 
 }

@@ -1,8 +1,8 @@
 package cn.edu.nju.story.map.vo;
 
 import cn.edu.nju.story.map.form.PageableForm;
+import cn.edu.nju.story.map.utils.BeanUtils;
 import lombok.Data;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Sort;
 
 /**

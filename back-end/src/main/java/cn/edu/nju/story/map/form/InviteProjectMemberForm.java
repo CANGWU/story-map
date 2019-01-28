@@ -8,7 +8,7 @@ import lombok.Data;
  * @create 2019-01-22 23:06
  **/
 @Data
-public class InvitationProjectMemberForm {
+public class InviteProjectMemberForm {
 
 
     /**

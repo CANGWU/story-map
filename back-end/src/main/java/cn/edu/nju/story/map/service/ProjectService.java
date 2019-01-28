@@ -36,10 +36,11 @@ public interface ProjectService {
     /**
      * 修改项目信息
      * @param userId
+     * @param projectId
      * @param modifyProjectVO
      * @return
      */
-    boolean modifyProject(Long userId, ModifyProjectVO modifyProjectVO);
+    boolean modifyProject(Long userId, Long projectId, ModifyProjectVO modifyProjectVO);
 
 
     /**
