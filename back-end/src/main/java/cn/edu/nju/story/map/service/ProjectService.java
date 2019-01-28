@@ -22,7 +22,7 @@ public interface ProjectService {
      * @return
      */
 
-    boolean createProject(Long uesrId, String name, String sign, String description, List<InvitationProjectMemberVO> newMemberList);
+    boolean createProject(Long uesrId, String name, String sign, String description, List<InviteProjectMemberVO> newMemberList);
 
     /**
      * 获取项目的详情

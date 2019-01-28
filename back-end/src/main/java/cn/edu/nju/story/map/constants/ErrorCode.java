@@ -101,7 +101,17 @@ public enum  ErrorCode {
     /**
      * 用户名或者密码错误
      */
-    USERNAME_OR_PASSWORD_ERROR(1003, "用户名或者密码错误");
+    USERNAME_OR_PASSWORD_ERROR(1003, "用户名或者密码错误"),
+
+    /**
+     * 项目标识已存在
+     */
+    SIGN_IS_EXISTED(1004, "项目标识已存在"),
+
+    /**
+     * 项目不存在
+     */
+    PROJECT_NOT_EXISTED(1005, "项目标识已存在");
 
 
 

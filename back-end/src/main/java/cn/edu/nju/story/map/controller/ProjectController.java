@@ -39,7 +39,7 @@ public class ProjectController {
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         OvalValidatorUtils.validate(createProject);
-        List<InvitationProjectMemberVO> newMemberList = CollectionUtils.isEmpty(createProject.getInvitationMembers()) ? new ArrayList<>() : createProject.getInvitationMembers().stream().map(InvitationProjectMemberVO::new).collect(Collectors.toList());
+        List<InviteProjectMemberVO> newMemberList = CollectionUtils.isEmpty(createProject.getInvitationMembers()) ? new ArrayList<>() : createProject.getInvitationMembers().stream().map(InviteProjectMemberVO::new).collect(Collectors.toList());
         return projectService.createProject(userId, createProject.getName(), createProject.getSign(), createProject.getDescription(), newMemberList);
 
     }

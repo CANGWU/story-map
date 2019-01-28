@@ -8,7 +8,6 @@ import net.sf.oval.constraint.NotNull;
 import java.util.List;
 
 /**
-<<<<<<< HEAD
  * CreateProjectEntity
  *
  * @author xuan
@@ -29,7 +28,7 @@ public class CreateProjectForm {
 
     private String description;
 
-    private List<InvitationProjectMemberForm> invitationMembers;
+    private List<InviteProjectMemberForm> invitationMembers;
 
 
 

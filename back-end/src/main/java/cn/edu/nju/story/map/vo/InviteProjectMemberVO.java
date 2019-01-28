@@ -2,7 +2,10 @@ package cn.edu.nju.story.map.vo;
 
 import cn.edu.nju.story.map.form.InviteProjectMemberForm;
 import cn.edu.nju.story.map.utils.BeanUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * InvitationProjectMemberFormVO
@@ -12,6 +15,9 @@ import lombok.Data;
  */
 
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
 public class InviteProjectMemberVO {
 
 
