@@ -1,0 +1,64 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+
+POST http://localhost:9000/project/create
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "name": "flag-map",
+  "sign": "flag-map",
+  "description": "另一个测试项目"
+}
+
+###
+
+GET http://localhost:9000/project/10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+###
+
+
+PUT http://localhost:9000/project/10
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "name": "story-map",
+  "sign": "story-map"
+}
+
+###
+
+POST http://localhost:9000/project/list/joined
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "pageSize":20,
+  "pageNumber": 0
+}
+
+###
+
+POST http://localhost:9000/project/list/my
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "pageSize":20,
+  "pageNumber": 0
+}
+
+###
+
+
+DELETE http://localhost:9000/project/10
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+###

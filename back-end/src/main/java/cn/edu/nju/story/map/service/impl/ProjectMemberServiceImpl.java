@@ -8,6 +8,8 @@ import cn.edu.nju.story.map.entity.ProjectMemberEntity;
 import cn.edu.nju.story.map.exception.DefaultErrorException;
 import cn.edu.nju.story.map.repository.ProjectMemberRepository;
 import cn.edu.nju.story.map.repository.ProjectRepository;
+import cn.edu.nju.story.map.repository.UserRepository;
+import cn.edu.nju.story.map.service.PermissionService;
 import cn.edu.nju.story.map.service.ProjectMemberService;
 import cn.edu.nju.story.map.vo.*;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +18,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
+import java.sql.Timestamp;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -36,6 +40,12 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 
     @Autowired
     ProjectRepository projectRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    PermissionService permissionService;
 
     @Override
     public boolean agreeInvitation(Long userId, Long invitationId) {
@@ -86,10 +96,10 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
                 .findByUserIdAndStateOrderByCreateTimeDesc(userId, ProjectMemberState.INVITING.getState(), PageRequest.of(pageable.getPageNumber(), pageable.getPageSize()));
 
         if(projectMemberEntities.isEmpty()){
-            return new PageImpl<>(new ArrayList<>(), projectMemberEntities.getPageable(), projectMemberEntities.getSize());
+            return new PageImpl<>(new ArrayList<>(), projectMemberEntities.getPageable(), projectMemberEntities.getTotalElements());
         }else {
 
-            Map<Long, ProjectEntity> projectEntityMap = StreamSupport.stream(projectRepository.findAllById(projectMemberEntities.map(ProjectMemberEntity::getProjectId)).spliterator(), true)
+            Map<Long, ProjectEntity> projectEntityMap = StreamSupport.stream(projectRepository.findAllById(projectMemberEntities.map(ProjectMemberEntity::getProjectId).getContent()).spliterator(), false)
             .collect(Collectors.toMap(ProjectEntity::getId, i->i));
 
             return projectMemberEntities.map( i -> new ProjectInvitationVO(i.getId(), projectEntityMap.getOrDefault(i.getProjectId(), new ProjectEntity()).getName()));
@@ -101,27 +111,94 @@ public class ProjectMemberServiceImpl implements ProjectMemberService {
 
     @Override
     public boolean inviteProjectMember(Long userId, Long projectId, List<InviteProjectMemberVO> newMemberList) {
+
+        if(CollectionUtils.isEmpty(newMemberList)){
+            return false;
+        }
+
         // 是否具备足够的权限
-        if(!projectMemberRepository.existsByProjectIdAndUserIdAndStateAndBelongPrivilegeGroup(projectId,
-                userId, ProjectMemberState.OK.getState(), PrivilegeGroup.MASTER.getLevel())){
+        if(!permissionService.hasCreatorPrivilege(userId, projectId) && !permissionService.hasMasterPrivilege(userId, projectId)){
             throw new DefaultErrorException(ErrorCode.FORBIDDEN);
         }
 
+        newMemberList = new ArrayList<>(newMemberList.stream().collect(Collectors.toMap(InviteProjectMemberVO::getUserId, i -> i, (v1, v2) -> {
+            if(v1.getPrivilegeGroup() > v2.getPrivilegeGroup()){
+                return v1;
+            }else {
+                return v2;
+            }
+        })).values());
 
 
+        List<ProjectMemberEntity> existedProjectMembers = projectMemberRepository.findByProjectIdAndUserIdIn(projectId, newMemberList.stream().map(InviteProjectMemberVO::getUserId).collect(Collectors.toList()));
+        Map<Long, ProjectMemberEntity> projectMemberEntityMap = existedProjectMembers.stream().collect(Collectors.toMap(ProjectMemberEntity::getUserId, i -> i));
 
-        return false;
+        Timestamp currentTime = new Timestamp(System.currentTimeMillis());
+
+        List<ProjectMemberEntity> projectMemberEntities = newMemberList.stream().filter(
+                i -> !projectMemberEntityMap.containsKey(i.getUserId()) && Objects.nonNull(PrivilegeGroup.getInstance(i.getPrivilegeGroup()))
+        ).map( i -> ProjectMemberEntity.builder()
+                .projectId(projectId)
+                .userId(i.getUserId())
+                .belongPrivilegeGroup(i.getPrivilegeGroup())
+                .state(Objects.equals(userId, i.getUserId()) ? ProjectMemberState.OK.getState() :ProjectMemberState.INVITING.getState())
+                .createTime(currentTime)
+                .build()).collect(Collectors.toList());
+
+        if(!CollectionUtils.isEmpty(projectMemberEntities)){
+            projectMemberRepository.saveAll(projectMemberEntities);
+        }
+
+        return true;
     }
 
     @Override
     public ProjectMembersVO queryProjectMembers(Long userId, Long projectId) {
 
+        // 是否具备足够的权限
+        if(!permissionService.hasSimplePrivilege(userId, projectId)){
+            throw new DefaultErrorException(ErrorCode.FORBIDDEN);
+        }
 
-        return null;
+        List<ProjectMemberEntity> memberEntities = projectMemberRepository.findByProjectIdAndState(projectId, ProjectMemberState.OK.getState());
+
+        if(CollectionUtils.isEmpty(memberEntities)){
+            return ProjectMembersVO.builder()
+                    .masterMembers(new ArrayList<>())
+                    .slaveMembers(new ArrayList<>())
+                    .build();
+        }
+
+        Map<Long, UserVO> userVOMap = StreamSupport.stream(userRepository.findAllById(memberEntities.stream().map(ProjectMemberEntity::getUserId).collect(Collectors.toList())).spliterator(), true).map(UserVO::new).collect(Collectors.toMap(UserVO::getId, i -> i));
+
+        List<UserVO> master = memberEntities.stream().filter( i -> Objects.equals(i.getBelongPrivilegeGroup(), PrivilegeGroup.MASTER.getLevel()))
+                .map( i -> userVOMap.get(i.getUserId())).collect(Collectors.toList());
+
+        List<UserVO> slave = memberEntities.stream().filter( i -> Objects.equals(i.getBelongPrivilegeGroup(), PrivilegeGroup.SLAVE.getLevel()))
+                .map( i -> userVOMap.get(i.getUserId())).collect(Collectors.toList());
+
+        return ProjectMembersVO.builder()
+                .masterMembers(master)
+                .slaveMembers(slave)
+                .build();
     }
 
     @Override
-    public List<ProjectMemebrVO> queryInvitingProjectMembers(Long userId, Long projectId) {
-        return null;
+    public List<UserVO> queryInvitingProjectMembers(Long userId, Long projectId) {
+        // 是否具备足够的权限
+        if(!permissionService.hasSimplePrivilege(userId, projectId)){
+            throw new DefaultErrorException(ErrorCode.FORBIDDEN);
+        }
+
+        List<ProjectMemberEntity> memberEntities = projectMemberRepository.findByProjectIdAndState(projectId, ProjectMemberState.INVITING.getState());
+
+        if(CollectionUtils.isEmpty(memberEntities)){
+            return new ArrayList<>();
+        }
+
+        Map<Long, UserVO> userVOMap = StreamSupport.stream(userRepository.findAllById(memberEntities.stream().map(ProjectMemberEntity::getUserId).collect(Collectors.toList())).spliterator(), true).map(UserVO::new).collect(Collectors.toMap(UserVO::getId, i -> i));
+
+        return memberEntities.stream().map( i -> userVOMap.get(i.getUserId())).collect(Collectors.toList());
+
     }
 }

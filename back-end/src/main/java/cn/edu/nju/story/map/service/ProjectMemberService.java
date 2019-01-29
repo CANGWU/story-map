@@ -64,6 +64,6 @@ public interface ProjectMemberService {
      * @param userId
      * @return
      */
-    List<ProjectMemebrVO> queryInvitingProjectMembers(Long userId, Long projectId);
+    List<UserVO> queryInvitingProjectMembers(Long userId, Long projectId);
 
 }

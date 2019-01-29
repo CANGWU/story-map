@@ -33,7 +33,8 @@ public class CardEntity {
     /**
      * 父级卡片Id，必须同属一个项目
      */
-    private Long senior_card_id;
+    @Column(name = "senior_card_id")
+    private Long seniorCardId;
 
     /**
      * 构建卡片数结构，避免循环节点，样式为cardId-cardId
@@ -77,7 +78,11 @@ public class CardEntity {
     /**
      * 故事点
      */
+    @Column(name = "story_point")
     private Integer storyPoint;
+
+    @Column(name = "create_time")
+    private Timestamp createTime;
 
     /**
      * 截止时间

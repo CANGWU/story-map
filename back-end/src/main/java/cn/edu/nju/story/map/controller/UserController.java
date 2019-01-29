@@ -50,6 +50,8 @@ public class UserController {
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiOperation(value = "用户登录, 返回的token放到Authorization头部中", response = String.class)
     public String login(@RequestBody LoginForm loginForm){
+
+        OvalValidatorUtils.validate(loginForm);
         return userService.login(loginForm.getEmail(), loginForm.getPassword());
     }
 
@@ -61,7 +63,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/search_by_email", method = RequestMethod.GET)
+    @RequestMapping(value = "/search_by_email", method = RequestMethod.POST)
     @ApiOperation(value = "根据邮箱分页搜索用户，添加项目参与者时使用", response = UserVO.class)
     public Page<UserVO> searchUserByEmail(@RequestParam String email,@RequestBody PageableForm pageableForm){
         OvalValidatorUtils.validate(pageableForm);

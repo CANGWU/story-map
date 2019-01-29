@@ -73,8 +73,8 @@ public class ProjectMemberController {
     }
 
     @RequestMapping(value = "/invite/list", method = RequestMethod.GET)
-    @ApiOperation(value = "获取邀请中的项目成员列表", response = ProjectMemebrVO.class)
-    public List<ProjectMemebrVO> queryInvitingProjectMembers(ServletRequest request, @RequestParam Long projectId){
+    @ApiOperation(value = "获取邀请中的项目成员列表", response = UserVO.class)
+    public List<UserVO> queryInvitingProjectMembers(ServletRequest request, @RequestParam Long projectId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         return projectMemberService.queryInvitingProjectMembers(userId, projectId);

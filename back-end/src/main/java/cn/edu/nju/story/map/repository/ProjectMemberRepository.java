@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -59,4 +60,28 @@ public interface ProjectMemberRepository extends PagingAndSortingRepository<Proj
      * @return
      */
     Page<ProjectMemberEntity> findByUserIdAndStateOrderByCreateTimeDesc(Long userId, Integer state, Pageable pageable);
+
+
+    /**
+     * 根据项目id和用户查询关系
+     * @param projectId
+     * @param userIds
+     * @return
+     */
+    List<ProjectMemberEntity> findByProjectIdAndUserIdIn(Long projectId, List<Long> userIds);
+
+
+    /**
+     * 获取项目中的成员
+     * @param projectId
+     * @param state
+     * @return
+     */
+    List<ProjectMemberEntity> findByProjectIdAndState(Long projectId, Integer state);
+
+    /**
+     * 删除项目成员
+     * @param projectId
+     */
+    void deleteByProjectId(Long projectId);
 }

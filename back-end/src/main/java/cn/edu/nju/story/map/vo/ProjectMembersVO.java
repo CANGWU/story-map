@@ -22,9 +22,9 @@ public class ProjectMembersVO {
     /**
      *
      */
-    List<ProjectMemebrVO> masterMembers;
+    List<UserVO> masterMembers;
 
-    List<ProjectMemebrVO> slaveMembers;
+    List<UserVO> slaveMembers;
 
 
 }
