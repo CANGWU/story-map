@@ -32,9 +32,10 @@ public class CardController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "在项目下创建一个新的卡片", response = boolean.class)
-    public boolean createCard(ServletRequest request, @RequestParam Long projectId, @RequestBody CreateCardForm createCardForm){
+    public CardDetailsVO createCard(ServletRequest request, @RequestParam Long projectId, @RequestBody CreateCardForm createCardForm){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
+        OvalValidatorUtils.validate(createCardForm);
         return cardService.createCard(userId, projectId, new CreateCardVO(createCardForm));
     }
 
@@ -70,6 +71,7 @@ public class CardController {
     @ApiOperation(value = "修改卡片详情", response = boolean.class)
     public boolean modifyCard(ServletRequest request, @PathVariable("cardId") Long cardId, @RequestBody ModifyCardForm modifyCardForm){
 
+        OvalValidatorUtils.validate(modifyCardForm);
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         return cardService.modifyCard(userId, cardId, new ModifyCardVO(modifyCardForm));
     }

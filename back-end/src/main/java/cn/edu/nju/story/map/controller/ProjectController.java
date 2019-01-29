@@ -25,7 +25,8 @@ import java.util.stream.Collectors;
  * @date 2019-01-16
  */
 
-@RestController("/project")
+@RestController
+@RequestMapping("/project")
 public class ProjectController {
 
 
@@ -35,7 +36,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建一个新的项目", response = boolean.class)
-    public boolean createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
+    public ProjectDetailsVO createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         OvalValidatorUtils.validate(createProject);
@@ -87,7 +88,7 @@ public class ProjectController {
 
     @RequestMapping(value = "/{projectId}", method = RequestMethod.DELETE)
     @ApiOperation(value = "删除项目", response = boolean.class)
-    public boolean deleteProjectById(ServletRequest request, Long projectId){
+    public boolean deleteProjectById(ServletRequest request, @PathVariable Long projectId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         return projectService.deleteProjectById(userId, projectId);

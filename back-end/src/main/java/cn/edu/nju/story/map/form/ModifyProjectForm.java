@@ -10,4 +10,21 @@ import lombok.Data;
  */
 @Data
 public class ModifyProjectForm {
+
+
+    /**
+     * 项目名
+     */
+    private String name;
+
+    /**
+     * 项目标识
+     */
+    private String sign;
+
+    /**
+     * 项目描述
+     */
+    private String description;
+
 }

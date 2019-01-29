@@ -1,0 +1,58 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+
+POST http://localhost:9000/card/create?projectId=12
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "title": "k1",
+  "type": 0,
+  "context": "k1"
+
+}
+
+
+###
+
+POST http://localhost:9000/card/list?projectId=12
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "pageSize":20,
+  "pageNumber": 0
+}
+
+###
+
+GET http://localhost:9000/card/18
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+###
+
+
+PUT http://localhost:9000/card/18
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "context": "k1k1",
+  "priority": 0,
+  "storyPoint": 10,
+  "state": 0
+}
+
+###
+
+
+DELETE http://localhost:9000/card/18
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+###
+

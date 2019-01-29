@@ -1,5 +1,8 @@
 package cn.edu.nju.story.map.utils;
 
+import cn.edu.nju.story.map.constants.ErrorCode;
+import cn.edu.nju.story.map.exception.DefaultErrorException;
+
 import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +24,13 @@ public class UserIdUtils {
      * @return
      */
     public static long praseUserIdFromRequest(ServletRequest request){
-        HttpServletRequest httpServletRequest = (HttpServletRequest) request;
-        return Long.parseLong(httpServletRequest.getParameter(USER_ID_PARAMETER_NAME));
+        try {
+            HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+            return Long.valueOf(httpServletRequest.getAttribute(USER_ID_PARAMETER_NAME).toString());
+        }catch (Exception e){
+            throw new DefaultErrorException(ErrorCode.FORBIDDEN);
+        }
+
     }
 
 }

@@ -111,7 +111,15 @@ public enum  ErrorCode {
     /**
      * 项目不存在
      */
-    PROJECT_NOT_EXISTED(1005, "项目标识已存在");
+    PROJECT_NOT_EXISTED(1005, "项目不存在"),
+    /**
+     * 邀请不存在
+     */
+    INVALID_INVITATION(1006, "邀请码不存在"),
+    /**
+     * 卡片不存在
+     */
+    CARD_NOT_EXISTED(1005, "卡片已存在");
 
 
 

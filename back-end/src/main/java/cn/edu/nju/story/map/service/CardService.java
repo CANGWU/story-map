@@ -19,7 +19,7 @@ public interface CardService {
      * @param createCardVO
      * @return
      */
-    boolean createCard(Long userId, Long projectId, CreateCardVO createCardVO);
+    CardDetailsVO createCard(Long userId, Long projectId, CreateCardVO createCardVO);
 
 
     /**
