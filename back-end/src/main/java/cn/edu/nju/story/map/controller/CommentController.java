@@ -4,13 +4,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * MapController
+ * CommentController
  *
  * @author xuan
- * @date 2019-01-16
+ * @date 2019-01-29
  */
-
 @RestController
-@RequestMapping("/map")
-public class MapController {
+@RequestMapping("/comment")
+public class CommentController {
 }

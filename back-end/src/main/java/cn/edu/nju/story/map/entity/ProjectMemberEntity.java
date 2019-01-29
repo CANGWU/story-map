@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 /**
  * ProjectMemberEntity
@@ -45,7 +46,7 @@ public class ProjectMemberEntity {
      * {@link cn.edu.nju.story.map.constants.PrivilegeGroup}
      */
     @Column(name = "belong_privilege_group")
-    private Long  belongPrivilegeGroup;
+    private Integer  belongPrivilegeGroup;
 
     /**
      * 成员状态
@@ -53,6 +54,12 @@ public class ProjectMemberEntity {
      */
     private Integer state;
 
+
+    /**
+     * 邀请事件
+     */
+    @Column(name = "create_time")
+    private Timestamp createTime;
 
 
 

@@ -14,7 +14,7 @@ public interface ProjectService {
 
     /**
      * 创建新的项目
-     * @param uesrId 创建者用户Id
+     * @param userId 创建者用户Id
      * @param name
      * @param sign
      * @param description
@@ -22,7 +22,7 @@ public interface ProjectService {
      * @return
      */
 
-    boolean createProject(Long uesrId, String name, String sign, String description, List<InviteProjectMemberVO> newMemberList);
+    ProjectDetailsVO createProject(Long userId, String name, String sign, String description, List<InviteProjectMemberVO> newMemberList);
 
     /**
      * 获取项目的详情
