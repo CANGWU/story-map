@@ -35,7 +35,7 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ApiOperation(value = "创建一个新的项目", response = boolean.class)
+    @ApiOperation(value = "创建一个新的项目", response = ProjectDetailsVO.class)
     public ProjectDetailsVO createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);

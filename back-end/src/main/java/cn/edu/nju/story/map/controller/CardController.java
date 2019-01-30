@@ -31,7 +31,7 @@ public class CardController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ApiOperation(value = "在项目下创建一个新的卡片", response = boolean.class)
+    @ApiOperation(value = "在项目下创建一个新的卡片", response = CardDetailsVO.class)
     public CardDetailsVO createCard(ServletRequest request, @RequestParam Long projectId, @RequestBody CreateCardForm createCardForm){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
@@ -75,9 +75,6 @@ public class CardController {
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         return cardService.modifyCard(userId, cardId, new ModifyCardVO(modifyCardForm));
     }
-
-
-
 
 
 }

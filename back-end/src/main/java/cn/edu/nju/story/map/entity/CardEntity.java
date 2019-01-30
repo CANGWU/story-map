@@ -30,6 +30,20 @@ public class CardEntity {
     @Column(name = "belong_pro_id")
     private Long belongProjectId;
 
+
+    /**
+     * 所属分组
+     */
+    @Column(name = "belong_group_id")
+    private Long belongGroupId;
+
+
+    /**
+     * 所属特性
+     */
+    @Column(name = "belong_feature_id")
+    private Long belongFeatureId;
+
     /**
      * 父级卡片Id，必须同属一个项目
      */

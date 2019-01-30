@@ -9,17 +9,16 @@ import javax.persistence.*;
 
 /**
  * @author xuan
- * @create 2019-01-13 00:02
+ * @create 2019-01-13 00:04
  **/
-
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "epic")
-public class EpicEntity {
+@Table(name = "feature")
+public class FeatureEntity {
 
     @Id
     @GeneratedValue
@@ -38,10 +37,10 @@ public class EpicEntity {
 
 
     /**
-     * 特性的排序记录
+     * 所属Epic
      */
-    @Column(name = "feature_index")
-    private String featureIndexList;
+    @Column(name = "belong_epic_id")
+    private Long belongEpicId;
 
 
 }
