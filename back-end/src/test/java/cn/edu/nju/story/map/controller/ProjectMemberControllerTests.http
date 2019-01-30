@@ -1,0 +1,62 @@
+# For a quick start check out our HTTP Requests collection (Tools|HTTP Client|Open HTTP Requests Collection).
+#
+# Following HTTP Request Live Templates are available:
+# * 'gtrp' and 'gtr' create a GET request with or without query parameters;
+# * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
+# * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
+
+POST http://localhost:9000/member/invite/my
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "pageSize":20,
+  "pageNumber": 0
+}
+
+###
+
+POST http://localhost:9000/member/invite?projectId=12
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+[
+  {
+    "privilegeGroup": 0,
+    "userId": 1
+  }
+]
+
+###
+
+GET http://localhost:9000/member/list?projectId=12
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+
+###
+
+
+GET http://localhost:9000/member/invite/list?projectId=12
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+###
+
+
+POST http://localhost:9000/member/invite/agree?invitationId=14
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{}
+
+###
+
+
+POST http://localhost:9000/member/invite/reject?invitationId=14
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{}
+
+###

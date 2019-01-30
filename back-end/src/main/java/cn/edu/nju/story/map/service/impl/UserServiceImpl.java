@@ -85,7 +85,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public Page<UserVO> queryUserByEmail(String email, PageableVO pageable) {
 
-        Pageable p = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), pageable.getSort());
+        Pageable p = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize());
 
         return userRepository.findByEmailIsLike(email, p).map(UserVO::new);
     }

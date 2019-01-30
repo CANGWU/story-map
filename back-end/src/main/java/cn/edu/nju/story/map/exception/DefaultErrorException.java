@@ -18,6 +18,8 @@ public class DefaultErrorException extends RuntimeException {
 
     public DefaultErrorException(ErrorCode errorCode){
         super(errorCode.getDescription());
+        this.errorCode = errorCode;
+
     }
 
 

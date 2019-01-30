@@ -62,5 +62,12 @@ public class ProjectEntity {
     private Integer state;
 
 
+    /**
+     * epic的排序记录
+     */
+    @Column(name = "epic_index")
+    private String epicIndexList;
+
+
 
 }

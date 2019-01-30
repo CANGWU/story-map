@@ -11,6 +11,7 @@ import cn.edu.nju.story.map.exception.DefaultErrorException;
 import cn.edu.nju.story.map.repository.ProjectMemberRepository;
 import cn.edu.nju.story.map.repository.ProjectRepository;
 import cn.edu.nju.story.map.repository.UserRepository;
+import cn.edu.nju.story.map.service.PermissionService;
 import cn.edu.nju.story.map.service.ProjectMemberService;
 import cn.edu.nju.story.map.service.ProjectService;
 import cn.edu.nju.story.map.utils.BeanUtils;
@@ -21,6 +22,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -52,8 +54,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     ProjectMemberRepository projectMemberRepository;
 
+    @Autowired
+    PermissionService permissionService;
+
     @Override
-    public boolean createProject(Long userId, String name, String sign, String description, List<InviteProjectMemberVO> newMemberList) {
+    public ProjectDetailsVO createProject(Long userId, String name, String sign, String description, List<InviteProjectMemberVO> newMemberList) {
 
 
         if(projectRepository.existsBySign(sign)){
@@ -77,7 +82,9 @@ public class ProjectServiceImpl implements ProjectService {
 
         projectMemberService.inviteProjectMember(userId, newProject.getId(), newMemberList);
 
-        return true;
+        Optional<UserEntity> createUser = userRepository.findById(userId);
+
+        return new ProjectDetailsVO(newProject, createUser.map(UserVO::new).orElse(null));
     }
 
     @Override
@@ -89,11 +96,11 @@ public class ProjectServiceImpl implements ProjectService {
             throw new DefaultErrorException(ErrorCode.PROJECT_NOT_EXISTED);
         }
 
-        if(!projectMemberRepository.existsByProjectIdAndUserId(projectId, userId)){
+        if(!permissionService.hasSimplePrivilege(userId, projectId)){
             throw new DefaultErrorException(ErrorCode.FORBIDDEN);
         }
 
-        Optional<UserEntity> createUser = userRepository.findById(userId);
+        Optional<UserEntity> createUser = userRepository.findById(projectEntityOptional.get().getCreatorUserId());
 
 
         return new ProjectDetailsVO(projectEntityOptional.get(), createUser.map(UserVO::new).orElse(null));
@@ -109,8 +116,7 @@ public class ProjectServiceImpl implements ProjectService {
         }
 
         // 非项目管理员权限
-        if(!projectMemberRepository.existsByProjectIdAndUserIdAndStateAndBelongPrivilegeGroup(projectId
-        , userId, ProjectMemberState.OK.getState(), PrivilegeGroup.MASTER.getLevel())){
+        if( !permissionService.hasMasterPrivilege(userId, projectId)){
             throw new DefaultErrorException(ErrorCode.FORBIDDEN);
         }
 
@@ -124,11 +130,13 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    @Transactional
     public boolean deleteProjectById(Long userId, Long projectId) {
 
         // 仅创建者可以删除
-        if(projectRepository.existsByIdAndCreatorUserId(projectId, userId)){
+        if(permissionService.hasCreatorPrivilege(userId, projectId)){
             projectRepository.deleteById(projectId);
+            projectMemberRepository.deleteByProjectId(projectId);
             return true;
         }else {
             throw new DefaultErrorException(ErrorCode.FORBIDDEN);
@@ -144,7 +152,7 @@ public class ProjectServiceImpl implements ProjectService {
         );
 
         if(projectMemberEntities.isEmpty()){
-            return new PageImpl<>(new ArrayList<>(), projectMemberEntities.getPageable(), projectMemberEntities.getSize());
+            return new PageImpl<>(new ArrayList<>(), projectMemberEntities.getPageable(), projectMemberEntities.getTotalElements());
         }else {
             return new PageImpl<>(StreamSupport.stream(projectRepository.findAllById(projectMemberEntities.get().map(ProjectMemberEntity::getProjectId).collect(Collectors.toList())).spliterator(), true)
                    .map(ProjectVO::new).collect(Collectors.toList()), projectMemberEntities.getPageable(), projectMemberEntities.getSize());

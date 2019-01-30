@@ -27,7 +27,7 @@ public class UserSessionFilter implements Filter {
 
 
      private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
-            Arrays.asList("/user/register", "/user/login", "/swagger-ui.html")));
+            Arrays.asList("/user/register", "/user/login", "/user/verify", "/swagger-ui.html")));
 
 
 
@@ -44,7 +44,7 @@ public class UserSessionFilter implements Filter {
         }else {
             String jwt = request.getHeader("Authorization");
             if(Objects.isNull(jwt)){
-                throw new DefaultErrorException(ErrorCode.UNAUTHORIZED);
+//                throw new DefaultErrorException(ErrorCode.UNAUTHORIZED);
             }else {
                 try{
                     String userId = JwtGenerator.verifyJwt(jwt);
