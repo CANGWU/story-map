@@ -36,22 +36,22 @@ public class ProjectController {
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @ApiOperation(value = "创建一个新的项目", response = boolean.class)
-    public boolean createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
+    public SimpleResponseVO createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         OvalValidatorUtils.validate(createProject);
         List<InviteProjectMemberVO> newMemberList = CollectionUtils.isEmpty(createProject.getInvitationMembers()) ? new ArrayList<>() : createProject.getInvitationMembers().stream().map(InviteProjectMemberVO::new).collect(Collectors.toList());
-        return projectService.createProject(userId, createProject.getName(), createProject.getSign(), createProject.getDescription(), newMemberList);
+        return SimpleResponseVO.OK(projectService.createProject(userId, createProject.getName(), createProject.getSign(), createProject.getDescription(), newMemberList));
 
     }
 
 
     @RequestMapping(value = "/{projectId}", method = RequestMethod.GET)
     @ApiOperation(value = "获取项目的详情", response = ProjectDetailsVO.class)
-    public ProjectDetailsVO queryProjectDetails(ServletRequest request, @PathVariable Long projectId){
+    public SimpleResponseVO queryProjectDetails(ServletRequest request, @PathVariable Long projectId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return projectService.queryProjectDetailsById(userId, projectId);
+        return SimpleResponseVO.OK(projectService.queryProjectDetailsById(userId, projectId));
 
     }
 
