@@ -109,18 +109,8 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public boolean modifyProject(Long userId, Long projectId, ModifyProjectVO modifyProjectVO) {
 
-        Optional<ProjectEntity> projectEntityOptional = projectRepository.findById(projectId);
 
-        if(!projectEntityOptional.isPresent()){
-            throw new DefaultErrorException(ErrorCode.PROJECT_NOT_EXISTED);
-        }
-
-        // 非项目管理员权限
-        if( !permissionService.hasMasterPrivilege(userId, projectId)){
-            throw new DefaultErrorException(ErrorCode.FORBIDDEN);
-        }
-
-        ProjectEntity projectEntity = projectEntityOptional.get();
+        ProjectEntity projectEntity = queryProjectAndCheckPrivilege(userId, projectId);
 
         BeanUtils.copyPropertiesSkipNull(modifyProjectVO, projectEntity);
 
@@ -165,5 +155,23 @@ public class ProjectServiceImpl implements ProjectService {
     public Page<ProjectVO> queryMyProject(Long userId, PageableVO pageableVO) {
 
         return projectRepository.findByCreatorUserIdOrderByCreateTimeDesc(userId, PageRequest.of(pageableVO.getPageNumber(), pageableVO.getPageSize())).map(ProjectVO::new);
+    }
+
+
+
+    ProjectEntity queryProjectAndCheckPrivilege(Long userId, Long projectId){
+        //是否具备操作权限
+        if(!permissionService.hasMasterPrivilege(userId, projectId)){
+            throw new DefaultErrorException(ErrorCode.FORBIDDEN);
+        }
+
+        Optional<ProjectEntity> projectEntityOptional = projectRepository.findById(projectId);
+
+        if(!projectEntityOptional.isPresent()){
+            throw new DefaultErrorException(ErrorCode.PROJECT_NOT_EXISTED);
+        }
+
+        return projectEntityOptional.get();
+
     }
 }

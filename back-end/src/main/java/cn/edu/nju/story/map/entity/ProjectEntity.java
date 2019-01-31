@@ -70,4 +70,12 @@ public class ProjectEntity {
 
 
 
+    /**
+     * group的排序记录
+     */
+    @Column(name = "group_index")
+    private String groupIndexList;
+
+
+
 }

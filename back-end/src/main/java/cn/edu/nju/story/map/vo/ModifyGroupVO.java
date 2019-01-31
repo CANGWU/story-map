@@ -11,6 +11,8 @@ import lombok.Data;
 @Data
 public class ModifyGroupVO {
 
+    private String name;
+
     public ModifyGroupVO(ModifyGroupForm modifyGroupForm){
         BeanUtils.copyPropertiesSkipNull(modifyGroupForm, this);
     }

@@ -16,7 +16,7 @@ public interface FeatureService {
      * @param createFeatureVO
      * @return
      */
-    FeatureDetailsVO createFeature(long userId, Long epicId, CreateFeatureVO createFeatureVO);
+    FeatureDetailsVO createFeature(Long userId, Long epicId, CreateFeatureVO createFeatureVO);
 
     /**
      * 删除一个特性
@@ -24,7 +24,7 @@ public interface FeatureService {
      * @param featureId
      * @return
      */
-    boolean deleteFeatureById(long userId, Long featureId);
+    boolean deleteFeatureById(Long userId, Long featureId);
 
     /**
      * 查询一个特性的详情
@@ -32,7 +32,7 @@ public interface FeatureService {
      * @param featureId
      * @return
      */
-    FeatureDetailsVO queryFeatureDetailsById(long userId, Long featureId);
+    FeatureDetailsVO queryFeatureDetailsById(Long userId, Long featureId);
 
     /**
      * 修改一个特性
@@ -41,5 +41,5 @@ public interface FeatureService {
      * @param modifyFeatureVO
      * @return
      */
-    boolean modifyFeature(long userId, Long featureId, ModifyFeatureVO modifyFeatureVO);
+    boolean modifyFeature(Long userId, Long featureId, ModifyFeatureVO modifyFeatureVO);
 }

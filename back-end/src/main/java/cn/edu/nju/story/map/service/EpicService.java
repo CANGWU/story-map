@@ -1,7 +1,5 @@
 package cn.edu.nju.story.map.service;
 
-import cn.edu.nju.story.map.form.CreateEpicForm;
-import cn.edu.nju.story.map.vo.CardDetailsVO;
 import cn.edu.nju.story.map.vo.CreateEpicVO;
 import cn.edu.nju.story.map.vo.EpicDetailsVO;
 import cn.edu.nju.story.map.vo.ModifyEpicVO;
@@ -31,7 +29,7 @@ public interface EpicService {
      * @param epicId
      * @return
      */
-    boolean deleteEpicById(long userId, Long epicId);
+    boolean deleteEpicById(Long userId, Long epicId);
 
     /**
      * 获取epic详情
@@ -39,7 +37,7 @@ public interface EpicService {
      * @param epicId
      * @return
      */
-    EpicDetailsVO queryEpicDetailsById(long userId, Long epicId);
+    EpicDetailsVO queryEpicDetailsById(Long userId, Long epicId);
 
     /**
      * 修改epic
@@ -48,5 +46,5 @@ public interface EpicService {
      * @param modifyEpicVO
      * @return
      */
-    boolean modifyEpic(long userId, Long epicId, ModifyEpicVO modifyEpicVO);
+    boolean modifyEpic(Long userId, Long epicId, ModifyEpicVO modifyEpicVO);
 }

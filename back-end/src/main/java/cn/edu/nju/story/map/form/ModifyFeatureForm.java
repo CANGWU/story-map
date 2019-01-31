@@ -9,4 +9,7 @@ import lombok.Data;
 
 @Data
 public class ModifyFeatureForm {
+
+    private String name;
+
 }

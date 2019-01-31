@@ -11,6 +11,9 @@ import lombok.Data;
 
 @Data
 public class ModifyFeatureVO {
+
+    private String name;
+
     public ModifyFeatureVO(ModifyFeatureForm modifyFeatureForm) {
         BeanUtils.copyPropertiesSkipNull(modifyFeatureForm, this);
     }

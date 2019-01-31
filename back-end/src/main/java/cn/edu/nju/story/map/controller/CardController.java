@@ -49,6 +49,16 @@ public class CardController {
     }
 
 
+    @RequestMapping(value = "/unmap/list", method = RequestMethod.POST)
+    @ApiOperation(value = "分页获取项目中未映射到map的卡片", response = CardVO.class)
+    public SimpleResponseVO queryUnmapProjectCard(ServletRequest request, @RequestParam Long projectId, @RequestBody PageableForm pageableForm){
+
+        OvalValidatorUtils.validate(pageableForm);
+        long userId = UserIdUtils.praseUserIdFromRequest(request);
+        return SimpleResponseVO.OK(cardService.queryUnmapProjectCard(userId, projectId, new PageableVO(pageableForm)));
+    }
+
+
     @RequestMapping(value = "/{cardId}",method = RequestMethod.DELETE)
     @ApiOperation(value = "删除卡片", response = boolean.class)
     public SimpleResponseVO deleteCardById(ServletRequest request, @PathVariable("cardId") Long cardId){

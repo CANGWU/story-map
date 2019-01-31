@@ -10,4 +10,7 @@ import lombok.Data;
  */
 @Data
 public class ModifyEpicForm {
+
+    private String name;
+
 }

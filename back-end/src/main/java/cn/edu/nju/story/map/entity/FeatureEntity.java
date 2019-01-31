@@ -43,10 +43,8 @@ public class FeatureEntity {
     private Long belongEpicId;
 
 
-    /**
-     * 卡片的排序
-     */
-    @Column(name = "card_index")
-    private String cardIndexList;
+
+
+
 
 }

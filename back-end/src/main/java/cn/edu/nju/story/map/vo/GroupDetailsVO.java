@@ -1,5 +1,6 @@
 package cn.edu.nju.story.map.vo;
 
+import cn.edu.nju.story.map.entity.GroupEntity;
 import lombok.Data;
 
 /**
@@ -8,4 +9,15 @@ import lombok.Data;
  **/
 @Data
 public class GroupDetailsVO {
+
+
+
+    private Long id;
+
+    private String name;
+
+    public GroupDetailsVO(GroupEntity groupEntity) {
+        this.id = groupEntity.getId();
+        this.name = groupEntity.getName();
+    }
 }

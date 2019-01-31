@@ -5,10 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * @author xuan
@@ -33,10 +30,12 @@ public class GroupEntity {
      */
     private String name;
 
-    /**
-     * 创建的顺序
-     */
-    private Integer number;
+
+    @Column(name = "belong_pro_id")
+    private Long belongProjectId;
+
+
+
 
 
 }

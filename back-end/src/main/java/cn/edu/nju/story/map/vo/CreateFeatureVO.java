@@ -10,6 +10,20 @@ import lombok.Data;
  **/
 @Data
 public class CreateFeatureVO {
+
+
+
+    /**
+     * 前驱
+     */
+    private Long precursor;
+
+    /**
+     * epic标题
+     */
+    private String name;
+
+
     public CreateFeatureVO(CreateFeatureForm createFeatureForm) {
         BeanUtils.copyPropertiesSkipNull(createFeatureForm, this);
     }

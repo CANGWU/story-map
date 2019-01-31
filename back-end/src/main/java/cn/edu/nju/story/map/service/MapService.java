@@ -1,5 +1,6 @@
 package cn.edu.nju.story.map.service;
 
+import cn.edu.nju.story.map.vo.MapDetailsVO;
 import cn.edu.nju.story.map.vo.TargetLocationVO;
 
 /**
@@ -17,7 +18,7 @@ public interface MapService {
      * @param targetLocationVO
      * @return
      */
-    boolean moveEpicLocation(long userId, Long epicId, TargetLocationVO targetLocationVO);
+    boolean moveEpicLocation(Long userId, Long epicId, TargetLocationVO targetLocationVO);
 
     /**
      * 移动feature位置
@@ -26,7 +27,7 @@ public interface MapService {
      * @param targetLocationVO
      * @return
      */
-    boolean moveFeatureLocation(long userId, Long featureId, TargetLocationVO targetLocationVO);
+    boolean moveFeatureLocation(Long userId, Long featureId, TargetLocationVO targetLocationVO);
 
     /**
      * 移动卡片的位置
@@ -35,5 +36,13 @@ public interface MapService {
      * @param targetLocationVO
      * @return
      */
-    boolean moveCardLocation(long userId, Long cardId, TargetLocationVO targetLocationVO);
+    boolean moveCardLocation(Long userId, Long cardId, TargetLocationVO targetLocationVO);
+
+    /**
+     * 获取项目的map
+     * @param userId
+     * @param projectId
+     * @return
+     */
+    MapDetailsVO queryMapDetails(Long userId, Long projectId);
 }
