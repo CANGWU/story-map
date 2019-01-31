@@ -4,16 +4,36 @@ import styles from './IndexContainer.scss'
 import { Icon, Dropdown, Input } from 'antd'
 import indexBg from '../resource/img/indexBg.png'
 import ProjectContainer from './ProjectContainer'
-import CreateProjectContainer from './CreateProjectContainer'
-
 
 class IndexContainer extends React.Component{
     state = {
         ifLogin: true,
         showProjectPopover: false,
         showOptPopover: false,
+        localStorage: localStorage,
+    }
+    componentDidMount(){
+        let jwt = {}
+        try {
+            jwt = JSON.parse(localStorage.getItem('auth')) || {}
+        } catch (e) { console.error(e) }
+        if (JSON.stringify(jwt) == '{}'){
+            console.log('push')
+            this.props.history.push('/login')
+        }
+    }
+    componentDidUpdate(){
+        let jwt = {}
+        try {
+            jwt = JSON.parse(localStorage.getItem('auth')) || {}
+        } catch (e) { console.error(e) }
+        console.log(jwt)
+        if (JSON.stringify(jwt) == '{}'){
+            this.props.history.push('/login')
+        }
     }
     render(){
+        let auth = JSON.parse(localStorage.getItem('auth')) || {}
         let projectContent= (<div className={styles.container}>
             <Input placeholder="输入项目名"/>
             <div className={styles.pList}>
@@ -26,7 +46,7 @@ class IndexContainer extends React.Component{
             </div>
         </div>)
         let optContent = (<div className={styles.list}>
-            <div className={styles.optRow}>退出</div>
+            <div className={styles.optRow} onClick={() => { localStorage.clear();this.setState({ localStorage: null })}}>退出</div>
         </div>)
         if (!this.state.ifLogin){
             return <Redirect to={{ pathname: "/login" }}/>
@@ -61,7 +81,7 @@ class IndexContainer extends React.Component{
                         onVisibleChange={(visible) => {this.setState({ showOptPopover: visible })}}
                     >
                         <div className={styles.rightBox}>
-                            <span className={styles.username}>username</span>
+                            <span className={styles.username}>{auth.username}</span>
                             <Icon type="down" style={{ transform: `rotate(${this.state.showOptPopover ? 180 : 0}deg)`, transition: 'all 0.3s'}}/>
                         </div>
                     </Dropdown>
