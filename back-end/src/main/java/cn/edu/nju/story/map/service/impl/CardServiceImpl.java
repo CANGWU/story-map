@@ -151,7 +151,7 @@ public class CardServiceImpl implements CardService {
             throw new DefaultErrorException(ErrorCode.FORBIDDEN);
         }
 
-        Page<CardEntity> cardEntities = cardRepository.findByBelongProjectIdAndBelongFeatureIdAndBelongGroupIdOrderByCreateTimeDesc(projectId, null, null, PageRequest.of(pageableVO.getPageNumber(), pageableVO.getPageSize()));
+        Page<CardEntity> cardEntities = cardRepository.findByBelongProjectIdAndBelongFeatureIdIsNullAndBelongGroupIdIsNullOrderByCreateTimeDesc(projectId, PageRequest.of(pageableVO.getPageNumber(), pageableVO.getPageSize()));
 
         return generatePageCards(cardEntities);
     }

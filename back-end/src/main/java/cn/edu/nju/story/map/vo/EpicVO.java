@@ -1,10 +1,12 @@
 package cn.edu.nju.story.map.vo;
 
+import cn.edu.nju.story.map.entity.EpicEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,5 +27,11 @@ public class EpicVO {
 
 
     private List<FeatureVO> featureList;
+
+    public EpicVO(EpicEntity epicEntity){
+        this.id = epicEntity.getId();
+        this.name = epicEntity.getName();
+        featureList = new ArrayList<>();
+    }
 
 }

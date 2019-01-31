@@ -56,3 +56,15 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3
 
 ###
 
+
+POST http://localhost:9000/card/unmap/list?projectId=2
+Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+
+{
+  "pageSize":20,
+  "pageNumber": 0
+}
+
+###
+
