@@ -1,5 +1,6 @@
 package cn.edu.nju.story.map.form;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NonNull;
 import net.sf.oval.constraint.NotBlank;
@@ -17,7 +18,6 @@ import java.sql.Timestamp;
  */
 @Data
 public class CreateCardForm {
-
 
     /**
      * 卡片标题
@@ -60,6 +60,25 @@ public class CreateCardForm {
      * 估计时间
      */
     private Long evaluateTime;
+
+
+
+    /**
+     * 所属分组
+     */
+    private Long belongGroupId;
+
+
+    /**
+     * 所属特性
+     */
+    private Long belongFeatureId;
+
+    /**
+     * 前驱
+     */
+    @ApiModelProperty("位置前驱，如果位于最前传则不传递")
+    private Long precursor;
 
 
 

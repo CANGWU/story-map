@@ -31,53 +31,59 @@ public class CardController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ApiOperation(value = "在项目下创建一个新的卡片", response = boolean.class)
-    public CardDetailsVO createCard(ServletRequest request, @RequestParam Long projectId, @RequestBody CreateCardForm createCardForm){
+    @ApiOperation(value = "在项目下创建一个新的卡片", response = CardDetailsVO.class)
+    public SimpleResponseVO createCard(ServletRequest request, @RequestParam Long projectId, @RequestBody CreateCardForm createCardForm) {
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        OvalValidatorUtils.validate(createCardForm);
-        return cardService.createCard(userId, projectId, new CreateCardVO(createCardForm));
+        return SimpleResponseVO.OK(cardService.createCard(userId, projectId, new CreateCardVO(createCardForm)));
     }
 
 
     @RequestMapping(value = "/list", method = RequestMethod.POST)
     @ApiOperation(value = "分页获取项目中的卡片", response = CardVO.class)
-    public Page<CardVO> queryProjectCard(ServletRequest request, @RequestParam Long projectId, @RequestBody PageableForm pageableForm){
+    public SimpleResponseVO queryProjectCard(ServletRequest request, @RequestParam Long projectId, @RequestBody PageableForm pageableForm){
 
         OvalValidatorUtils.validate(pageableForm);
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return cardService.queryProjectCard(userId, projectId, new PageableVO(pageableForm));
+        return SimpleResponseVO.OK(cardService.queryProjectCard(userId, projectId, new PageableVO(pageableForm)));
+    }
+
+
+    @RequestMapping(value = "/unmap/list", method = RequestMethod.POST)
+    @ApiOperation(value = "分页获取项目中未映射到map的卡片", response = CardVO.class)
+    public SimpleResponseVO queryUnmapProjectCard(ServletRequest request, @RequestParam Long projectId, @RequestBody PageableForm pageableForm){
+
+        OvalValidatorUtils.validate(pageableForm);
+        long userId = UserIdUtils.praseUserIdFromRequest(request);
+        return SimpleResponseVO.OK(cardService.queryUnmapProjectCard(userId, projectId, new PageableVO(pageableForm)));
     }
 
 
     @RequestMapping(value = "/{cardId}",method = RequestMethod.DELETE)
     @ApiOperation(value = "删除卡片", response = boolean.class)
-    public boolean deleteCardById(ServletRequest request, @PathVariable("cardId") Long cardId){
+    public SimpleResponseVO deleteCardById(ServletRequest request, @PathVariable("cardId") Long cardId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return cardService.deleteCardById(userId, cardId);
+        return SimpleResponseVO.OK(cardService.deleteCardById(userId, cardId));
     }
 
     @RequestMapping(value = "/{cardId}", method = RequestMethod.GET)
     @ApiOperation(value = "获取卡片详情", response = CardDetailsVO.class)
-    public CardDetailsVO queryCardDetailsById(ServletRequest request, @PathVariable("cardId") Long cardId){
+    public SimpleResponseVO queryCardDetailsById(ServletRequest request, @PathVariable("cardId") Long cardId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return cardService.queryCardDetailsById(userId, cardId);
+        return SimpleResponseVO.OK(cardService.queryCardDetailsById(userId, cardId));
     }
 
 
     @RequestMapping(value = "/{cardId}", method = RequestMethod.PUT)
     @ApiOperation(value = "修改卡片详情", response = boolean.class)
-    public boolean modifyCard(ServletRequest request, @PathVariable("cardId") Long cardId, @RequestBody ModifyCardForm modifyCardForm){
+    public SimpleResponseVO modifyCard(ServletRequest request, @PathVariable("cardId") Long cardId, @RequestBody ModifyCardForm modifyCardForm){
 
         OvalValidatorUtils.validate(modifyCardForm);
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return cardService.modifyCard(userId, cardId, new ModifyCardVO(modifyCardForm));
+        return SimpleResponseVO.OK(cardService.modifyCard(userId, cardId, new ModifyCardVO(modifyCardForm)));
     }
-
-
-
 
 
 }

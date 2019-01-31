@@ -32,6 +32,31 @@ public interface CardRepository extends PagingAndSortingRepository<CardEntity, L
      */
     Page<CardEntity> findByBelongProjectIdOrderByCreateTimeDesc(Long projectId, Pageable pageable);
 
+    /**
+     * 分页获取项目中没有map的卡片
+     * @param projectId
+     * @param featureId
+     * @param groupId
+     * @param pageable
+     * @return
+     */
+    Page<CardEntity> findByBelongProjectIdAndBelongFeatureIdAndBelongGroupIdOrderByCreateTimeDesc(Long projectId, Long featureId, Long groupId, Pageable pageable);
+
+    /**
+     * 根据featureId查询卡片
+     * @param featureId
+     * @return
+     */
+    boolean existsByBelongFeatureId(Long featureId);
+
+
+
+    /**
+     * 根据groupId查询卡片
+     * @param groupId
+     * @return
+     */
+    boolean existsByBelongGroupId(Long groupId);
 
 
 }

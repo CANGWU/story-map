@@ -9,17 +9,16 @@ import javax.persistence.*;
 
 /**
  * @author xuan
- * @create 2019-01-13 00:02
+ * @create 2019-01-13 00:04
  **/
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "my_group")
-public class GroupEntity {
-
-
+@Table(name = "feature")
+public class FeatureEntity {
 
     @Id
     @GeneratedValue
@@ -30,9 +29,19 @@ public class GroupEntity {
      */
     private String name;
 
-
+    /**
+     * 所属项目
+     */
     @Column(name = "belong_pro_id")
     private Long belongProjectId;
+
+
+    /**
+     * 所属Epic
+     */
+    @Column(name = "belong_epic_id")
+    private Long belongEpicId;
+
 
 
 

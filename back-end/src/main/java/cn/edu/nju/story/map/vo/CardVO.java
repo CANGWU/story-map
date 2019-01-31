@@ -30,6 +30,8 @@ public class CardVO {
     private UserVO creatorUser;
 
 
+
+
     public CardVO(CardEntity cardEntity, UserVO creatorUser){
 
         this.id = cardEntity.getId();
