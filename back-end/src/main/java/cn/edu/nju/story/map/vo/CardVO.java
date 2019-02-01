@@ -29,6 +29,10 @@ public class CardVO {
 
     private UserVO creatorUser;
 
+    private Long belongGroupId;
+
+    private Long belongFeatureId;
+
 
 
 
@@ -42,6 +46,17 @@ public class CardVO {
         this.state = cardEntity.getState();
         this.creatorUser = creatorUser;
 
+    }
+
+    public CardVO(CardEntity cardEntity){
+        this.id = cardEntity.getId();
+        this.number = cardEntity.getNumber();
+        this.title = cardEntity.getTitle();
+        this.type = cardEntity.getType();
+        this.createTime = cardEntity.getCreateTime();
+        this.state = cardEntity.getState();
+        this.belongFeatureId = cardEntity.getBelongFeatureId();
+        this.belongGroupId = cardEntity.getBelongGroupId();
     }
 
 

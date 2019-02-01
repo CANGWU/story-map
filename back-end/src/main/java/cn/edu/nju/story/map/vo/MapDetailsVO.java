@@ -21,4 +21,6 @@ public class MapDetailsVO {
 
     List<EpicVO> epicList;
 
+    List<GroupVO> groupList;
+
 }

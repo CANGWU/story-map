@@ -1,10 +1,12 @@
 package cn.edu.nju.story.map.vo;
 
+import cn.edu.nju.story.map.entity.GroupEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,4 +28,12 @@ public class GroupVO {
     private List<CardVO> cardList;
 
 
+    public GroupVO(GroupEntity groupEntity) {
+
+        this.id = groupEntity.getId();
+        this.name = groupEntity.getName();
+
+        cardList = new ArrayList<>();
+
+    }
 }
