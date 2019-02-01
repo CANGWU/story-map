@@ -4,6 +4,7 @@ import styles from './IndexContainer.scss'
 import { Icon, Dropdown, Input } from 'antd'
 import indexBg from '../resource/img/indexBg.png'
 import ProjectContainer from './ProjectContainer'
+import { baseURL, API } from '../config'
 
 class IndexContainer extends React.Component{
     state = {
@@ -11,6 +12,9 @@ class IndexContainer extends React.Component{
         showProjectPopover: false,
         showOptPopover: false,
         localStorage: localStorage,
+    }
+    componentWillMount(){
+        this.fetchProjectList()
     }
     componentDidMount(){
         let jwt = {}
@@ -31,6 +35,18 @@ class IndexContainer extends React.Component{
         if (JSON.stringify(jwt) == '{}'){
             this.props.history.push('/login')
         }
+    }
+    fetchProjectList = () => {
+        let auth = JSON.parse(localStorage.getItem('auth')) || {}
+        API.query(baseURL + '/project/list/my', {
+            method: 'POST',
+            body: JSON.stringify({
+                id: auth.id,
+                name: auth.username,
+            })
+        }).then((json) => {
+            console.log(json)
+        })
     }
     render(){
         let auth = JSON.parse(localStorage.getItem('auth')) || {}
