@@ -12,6 +12,9 @@ class IndexContainer extends React.Component{
         showProjectPopover: false,
         showOptPopover: false,
         localStorage: localStorage,
+        projectList: [],
+        projectFilter: '',
+        currentProject: {},
     }
     componentWillMount(){
         this.fetchProjectList()
@@ -22,7 +25,6 @@ class IndexContainer extends React.Component{
             jwt = JSON.parse(localStorage.getItem('auth')) || {}
         } catch (e) { console.error(e) }
         if (JSON.stringify(jwt) == '{}'){
-            console.log('push')
             this.props.history.push('/login')
         }
     }
@@ -31,7 +33,6 @@ class IndexContainer extends React.Component{
         try {
             jwt = JSON.parse(localStorage.getItem('auth')) || {}
         } catch (e) { console.error(e) }
-        console.log(jwt)
         if (JSON.stringify(jwt) == '{}'){
             this.props.history.push('/login')
         }
@@ -41,21 +42,28 @@ class IndexContainer extends React.Component{
         API.query(baseURL + '/project/list/my', {
             method: 'POST',
             body: JSON.stringify({
-                id: auth.id,
-                name: auth.username,
+                pageNumber: 0,
+                pageSize: 100,
             })
         }).then((json) => {
-            console.log(json)
+            if (json.code == 0){
+                this.setState({
+                    projectList: json.data.content,
+                    currentProject: json.data.content.length !== 0 ? json.data.content[0] : {},
+                })
+            }
         })
     }
     render(){
         let auth = JSON.parse(localStorage.getItem('auth')) || {}
         let projectContent= (<div className={styles.container}>
-            <Input placeholder="输入项目名"/>
+            <Input placeholder="输入项目名" onChange={(e) => {this.setState({ projectFilter: e.target.value })}} value={this.state.projectFilter}/>
             <div className={styles.pList}>
-                <div className={styles.pRow}>项目1</div>
-                <div className={styles.pRow}>项目2</div>
-                <div className={styles.pRow}>项目3</div>
+                {
+                    this.state.projectList.filter((v) => v.name.indexOf(this.state.projectFilter) >= 0).map((v, k) => {
+                        return <div className={styles.pRow} key={k} onClick={() => {this.setState({ currentProject: v, showProjectPopover: false })}}>{v.name}</div>
+                    })
+                }
             </div>
             <div className={styles.addBtn} onClick={() => { this.props.history.push('/index/create'); this.setState({ showProjectPopover: false })}}>
                 +新建项目
@@ -101,11 +109,11 @@ class IndexContainer extends React.Component{
                             <Icon type="down" style={{ transform: `rotate(${this.state.showOptPopover ? 180 : 0}deg)`, transition: 'all 0.3s'}}/>
                         </div>
                     </Dropdown>
-
                 </div>
             </div>
             <div className={styles.content} style={{ backgroundImage: 'url(' + indexBg + ')' }} >
-                <Route path="/index" component={ProjectContainer}/>
+                <ProjectContainer fresh={this.fetchProjectList} project={this.state.currentProject}/>
+                {/*<Route path="/index" component={() => {return <ProjectContainer fresh={this.fetchProjectList} project={this.state.currentProject} />}}/>*/}
             </div>
         </div>
     }
