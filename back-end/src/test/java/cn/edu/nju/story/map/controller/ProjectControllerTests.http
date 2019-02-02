@@ -11,8 +11,8 @@ Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
 
 {
-  "name": "flag-map",
-  "sign": "flag-map",
+  "name": "flag-map2",
+  "sign": "flag-map2",
   "description": "另一个测试项目"
 }
 

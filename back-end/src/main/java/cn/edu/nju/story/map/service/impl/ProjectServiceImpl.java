@@ -11,6 +11,7 @@ import cn.edu.nju.story.map.exception.DefaultErrorException;
 import cn.edu.nju.story.map.repository.ProjectMemberRepository;
 import cn.edu.nju.story.map.repository.ProjectRepository;
 import cn.edu.nju.story.map.repository.UserRepository;
+import cn.edu.nju.story.map.service.GroupService;
 import cn.edu.nju.story.map.service.PermissionService;
 import cn.edu.nju.story.map.service.ProjectMemberService;
 import cn.edu.nju.story.map.service.ProjectService;
@@ -57,6 +58,9 @@ public class ProjectServiceImpl implements ProjectService {
     @Autowired
     PermissionService permissionService;
 
+    @Autowired
+    GroupService groupService;
+
     @Override
     public ProjectDetailsVO createProject(Long userId, String name, String sign, String description, List<InviteProjectMemberVO> newMemberList) {
 
@@ -81,6 +85,12 @@ public class ProjectServiceImpl implements ProjectService {
         newMemberList.add(new InviteProjectMemberVO(userId, PrivilegeGroup.MASTER.getLevel()));
 
         projectMemberService.inviteProjectMember(userId, newProject.getId(), newMemberList);
+
+        // 添加一个默认的group
+        groupService.createGroup(userId, newProject.getId(), CreateGroupVO.builder()
+                .name("Default Group")
+                .build());
+
 
         Optional<UserEntity> createUser = userRepository.findById(userId);
 
