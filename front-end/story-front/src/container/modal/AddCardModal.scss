@@ -1,0 +1,18 @@
+:local(.addCardModal){
+  :local(.container){
+    display:flex;
+    flex-direction:column;
+    :local(.row){
+      display:flex;
+      padding-left:30px;
+      margin-bottom:20px;
+      :local(.label){
+        width:60px;
+      }
+      .ant-input{
+        width:300px;
+        resize:none;
+      }
+    }
+  }
+}

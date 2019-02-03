@@ -26,11 +26,11 @@ class ProjectContainer extends React.Component{
         this.setState({
             currentTab: TAB_NAME[tab],
         })
-        if (tab == 0){
+        if (tab === 0){
             this.props.history.push('/index')
             return
         }
-        if (tab == 1){
+        if (tab === 1){
             this.props.history.push('/index/settings')
             return
         }
@@ -59,8 +59,8 @@ class ProjectContainer extends React.Component{
             {
                 !creating && !empty && <div className={styles.header}>
                     <div className={styles.projectName}>{this.props.project.name}</div>
-                    <div onClick={this.handleChangeTab.bind(null, 0)} className={styles.block} style={this.state.currentTab == TAB_NAME[0] ? { borderBottom: '3px solid #3798e9', color: '#3798e9'} : {}}>Story Mapping</div>
-                    <div onClick={this.handleChangeTab.bind(null, 1)} className={styles.block} style={this.state.currentTab == TAB_NAME[1] ? { borderBottom: '3px solid #3798e9', color: '#3798e9'} : {}}>项目设置</div>
+                    <div onClick={this.handleChangeTab.bind(null, 0)} className={styles.block} style={this.state.currentTab === TAB_NAME[0] ? { borderBottom: '3px solid #3798e9', color: '#3798e9'} : {}}>Story Mapping</div>
+                    <div onClick={this.handleChangeTab.bind(null, 1)} className={styles.block} style={this.state.currentTab === TAB_NAME[1] ? { borderBottom: '3px solid #3798e9', color: '#3798e9'} : {}}>项目设置</div>
                 </div>
             }
 

@@ -48,10 +48,10 @@ class LoginContainer extends React.Component{
                         id: json.data.id,
                     }))
                     this.props.history.push('/index')
-                    message.success('注册成功')
+                    message.success('注册成功',0.5)
                 }
                 else {
-                    message.error('注册失败，网络错误')
+                    message.error('注册失败，网络错误',0.5)
                 }
 
             })
@@ -93,7 +93,7 @@ class LoginContainer extends React.Component{
                         this.props.history.push('/index')
                     }
                     else {
-                        message.error('用户信息获取失败，请重新登录')
+                        message.error('用户信息获取失败，请重新登录',0.5)
                     }
                 })
             }

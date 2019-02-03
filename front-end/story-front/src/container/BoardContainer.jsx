@@ -1,9 +1,9 @@
 import React from 'react'
 import styles from './BoardContainer.scss'
-import { Icon, Dropdown, message, Input } from 'antd'
+import { Icon, Dropdown, message, Input, Modal } from 'antd'
 import { baseURL, API } from '../config'
 import { fromJS, toJS } from 'immutable'
-
+import AddCardModal from './modal/AddCardModal'
 
 class BoardContainer extends React.Component{
     state = {
@@ -16,11 +16,19 @@ class BoardContainer extends React.Component{
         editingFeature: '未命名feature',
         showEpicBottom: -1,
         showFeatureBottom: -1,
+        showCardBottom: -1,
         scrollWidth: 2000, //默认滚动长度
         renameEpic: -1,
         renameFeature: -1,
         isEditingGroup: -1,
         editingGroup: '未命名分组',
+        showAddCard: -1, //控制新建卡片显示
+        mouseInGroup: -1, //控制新建卡片显示
+        showCardModal: false,
+        belongFeatureId: -1,
+        belongGroupId: -1,
+        currentCard: null,
+        cardCursor: -1, //新增卡片时的位置
     }
     componentWillMount(){
         this.fetchDetail()
@@ -75,7 +83,7 @@ class BoardContainer extends React.Component{
                 })
             }
             else {
-                message.error('添加失败，网络错误')
+                message.error('添加失败，网络错误',0.5)
                 this.setState({
                     isAddingEpic: false,
                     editingEpic: '未命名epic',
@@ -100,11 +108,11 @@ class BoardContainer extends React.Component{
             method :'DELETE',
         }).then((json) => {
             if (json.code == 0){
-                message.success('删除成功')
+                message.success('删除成功',0.5)
                 this.fetchDetail()
             }
             else {
-                message.error(json.data)
+                message.error(json.data,0.5)
             }
         })
     }
@@ -129,7 +137,7 @@ class BoardContainer extends React.Component{
                 })
             }
             else {
-                message.error('修改失败,网络错误')
+                message.error('修改失败,网络错误',0.5)
                 this.setState({
                     editingEpic: '未命名epic',
                     renameEpic: -1,
@@ -168,7 +176,7 @@ class BoardContainer extends React.Component{
                 })
             }
             else {
-                message.error('添加失败，网络错误')
+                message.error('添加失败，网络错误',0.5)
                 this.setState({
                     isAddingFeature: -1,
                     editingFeature: '未命名feature',
@@ -181,11 +189,11 @@ class BoardContainer extends React.Component{
             method: 'DELETE',
         }).then((json) => {
             if (json.code == 0){
-                message.success('删除成功')
+                message.success('删除成功',0.5)
                 this.fetchDetail()
             }
             else {
-                message.error(json.data)
+                message.error(json.data,0.5)
             }
         })
     }
@@ -210,7 +218,7 @@ class BoardContainer extends React.Component{
                 })
             }
             else {
-                message.error('修改失败,网络错误')
+                message.error('修改失败,网络错误',0.5)
                 this.setState({
                     editingFeature: '未命名epic',
                     renameFeature: -1,
@@ -222,7 +230,6 @@ class BoardContainer extends React.Component{
     //在右侧新建Feature
     handleAddFeature = (eIndex, fIndex) => {
         let tmp = fromJS(this.state.epicList).toJS()
-        let res = []
         tmp.map((v, k) => {
             if (k == eIndex){
                 v.featureList.splice(fIndex + 1, 0, {
@@ -231,7 +238,6 @@ class BoardContainer extends React.Component{
                     groupList: [],
                 })
             }
-            res.push(v)
         })
         this.setState({
             epicList: tmp,
@@ -269,7 +275,7 @@ class BoardContainer extends React.Component{
                 })
             }
             else {
-                message.error(json.data)
+                message.error(json.data,0.5)
                 this.setState({
                     isEditingGroup: -1,
                     editingGroup: '未命名分组',
@@ -297,7 +303,7 @@ class BoardContainer extends React.Component{
                 })
             }
             else {
-                message.error(json.data)
+                message.error(json.data,0.5)
                 this.setState({
                     editingGroup: '未命名分组',
                 })
@@ -310,10 +316,23 @@ class BoardContainer extends React.Component{
         }).then((json) => {
             if (json.code == 0){
                 this.fetchDetail()
-                message.success('删除成功')
+                message.success('删除成功',0.5)
             }
             else {
-                message.error(json.data)
+                message.error(json.data,0.5)
+            }
+        })
+    }
+    handleDeleteCard = (card) => {
+        API.query( baseURL + `/card/${card.id}`, {
+            method: 'DELETE',
+        }).then((json) => {
+            if (json.code == 0){
+                message.success('删除成功',0.5)
+                this.fetchDetail()
+            }
+            else {
+                message.error('删除失败,网络错误',0.5)
             }
         })
     }
@@ -485,7 +504,7 @@ class BoardContainer extends React.Component{
                 <div className={styles.columnContent} ref={(ref) => {this.scrollRef = ref}}>
                     {
                         groupList.map((g, k) => {
-                            return <div className={styles.groupContainer} key={k}>
+                            return <div className={styles.groupContainer} key={k} onMouseEnter={() => {this.setState({ mouseInGroup: g.id })}} onMouseLeave={() => {this.setState({ mouseInGroup: -1 })}}>
                                 {
                                     g.id == -2 ? <div className={styles.titleContainer}>
                                             <Icon type="plus"/>
@@ -542,13 +561,56 @@ class BoardContainer extends React.Component{
                                             return <div className={styles.column} key={tk}>
                                                     {
                                                         t.featureList.map((f, fk) => {
-                                                            return <div className={styles.featureColumn} key={fk}>
+                                                            return <div className={styles.featureColumn} key={fk} onMouseEnter={() => {
+                                                                this.setState({
+                                                                    showAddCard: f.id,
+                                                                })
+                                                            }} onMouseLeave={() => {
+                                                                this.setState({
+                                                                    showAddCard: -1,
+                                                                })
+                                                            }}>
                                                                 {
                                                                     f.groupList.map((gr, gk) => {
-                                                                        return <div className={styles.block} key={gk}>
-                                                                            {gr.content}
-                                                                        </div>
+                                                                        if (gr.id == g.id){
+                                                                            return gr.cardList.map((c, ck) => {
+                                                                                return <div className={styles.block} key={ck} onMouseEnter={() => { this.setState({ showCardBottom: c.id })}}
+                                                                                            onMouseLeave={() => { this.setState({ showCardBottom: -1 })}}>
+                                                                                    <span className={styles.name}
+                                                                                          title={c.title}>{c.title}</span>
+                                                                                    {
+                                                                                        this.state.showCardBottom == c.id && <div className={styles.bottom}>
+                                                                                            <Icon type="delete" title="删除" onClick={this.handleDeleteCard.bind(this, c)}/>
+                                                                                            <Icon type="edit" title="编辑" onClick={() => {
+                                                                                                this.setState({
+                                                                                                    showCardModal: true,
+                                                                                                    currentCard: c,
+                                                                                                })
+                                                                                            }}/>
+                                                                                            <Icon type="down-circle" title="在下方新建卡片" onClick={() => {
+                                                                                                this.setState({
+                                                                                                    showCardModal: true,
+                                                                                                    belongFeatureId: f.id,
+                                                                                                    belongGroupId: g.id,
+                                                                                                    currentCard: null,
+                                                                                                    cardCursor: c.id,
+                                                                                                })
+                                                                                            }}/>
+                                                                                        </div>
+                                                                                    }
+                                                                                </div>
+                                                                            })
+                                                                        }
                                                                     })
+                                                                }
+                                                                {
+                                                                    this.state.showAddCard == f.id && this.state.mouseInGroup == g.id &&
+                                                                    <div
+                                                                        className={styles.addEpic}
+                                                                        onClick={() => {this.setState({ showCardModal: true, belongFeatureId: f.id, belongGroupId: g.id, currentCard: null })}}
+                                                                    >
+                                                                        新建卡片
+                                                                    </div>
                                                                 }
                                                             </div>
                                                         })
@@ -564,6 +626,24 @@ class BoardContainer extends React.Component{
                 </div>
 
             </div>
+            {
+                this.state.showCardModal && <AddCardModal
+                    cancel={() => {this.setState({
+                        showCardModal: false,
+                        showAddCard: this.state.belongFeatureId,
+                        mouseInGroup: this.state.belongGroupId,
+                        belongFeatureId: -1,
+                        belongGroupId: -1,
+                        currentCard: null,
+                        cardCursor: -1,
+                    })}}
+                    project={this.props.project} fresh={this.fetchDetail}
+                    featureId={this.state.belongFeatureId}
+                    groupId={this.state.belongGroupId}
+                    currentCard={this.state.currentCard}
+                    cardCursor={this.state.cardCursor}
+                />
+            }
         </div>
     }
 }
