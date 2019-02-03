@@ -35,63 +35,62 @@ public class ProjectController {
 
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    @ApiOperation(value = "创建一个新的项目", response = boolean.class)
-    public ProjectDetailsVO createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
-
+    @ApiOperation(value = "创建一个新的项目", response = ProjectDetailsVO.class)
+    public SimpleResponseVO createNewProject(ServletRequest request, @RequestBody CreateProjectForm createProject){
         long userId = UserIdUtils.praseUserIdFromRequest(request);
         OvalValidatorUtils.validate(createProject);
         List<InviteProjectMemberVO> newMemberList = CollectionUtils.isEmpty(createProject.getInvitationMembers()) ? new ArrayList<>() : createProject.getInvitationMembers().stream().map(InviteProjectMemberVO::new).collect(Collectors.toList());
-        return projectService.createProject(userId, createProject.getName(), createProject.getSign(), createProject.getDescription(), newMemberList);
+        return SimpleResponseVO.OK(projectService.createProject(userId, createProject.getName(), createProject.getSign(), createProject.getDescription(), newMemberList));
 
     }
 
 
     @RequestMapping(value = "/{projectId}", method = RequestMethod.GET)
     @ApiOperation(value = "获取项目的详情", response = ProjectDetailsVO.class)
-    public ProjectDetailsVO queryProjectDetails(ServletRequest request, @PathVariable Long projectId){
+    public SimpleResponseVO queryProjectDetails(ServletRequest request, @PathVariable Long projectId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return projectService.queryProjectDetailsById(userId, projectId);
+        return SimpleResponseVO.OK(projectService.queryProjectDetailsById(userId, projectId));
 
     }
 
 
     @RequestMapping(value = "/{projectId}", method = RequestMethod.PUT)
     @ApiOperation(value = "修改项目的详情", response = boolean.class)
-    public boolean modifyProject(ServletRequest request, @PathVariable Long projectId, @RequestBody ModifyProjectForm modifyProjectForm){
+    public SimpleResponseVO modifyProject(ServletRequest request, @PathVariable Long projectId, @RequestBody ModifyProjectForm modifyProjectForm){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return projectService.modifyProject(userId, projectId, new ModifyProjectVO(modifyProjectForm));
+        return SimpleResponseVO.OK(projectService.modifyProject(userId, projectId, new ModifyProjectVO(modifyProjectForm)));
 
     }
 
     @RequestMapping(value = "/list/joined", method = RequestMethod.POST)
     @ApiOperation(value = "获取我参与的项目", response = ProjectVO.class)
-    public Page<ProjectVO> queryJoinedProject(ServletRequest request, @RequestBody PageableForm pageableForm){
+    public SimpleResponseVO queryJoinedProject(ServletRequest request, @RequestBody PageableForm pageableForm){
 
         OvalValidatorUtils.validate(pageableForm);
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return projectService.queryJoinedProject(userId, new PageableVO(pageableForm));
+        return SimpleResponseVO.OK(projectService.queryJoinedProject(userId, new PageableVO(pageableForm)));
 
     }
 
 
     @RequestMapping(value = "/list/my", method = RequestMethod.POST)
     @ApiOperation(value = "获取我创建的项目", response = ProjectVO.class)
-    public Page<ProjectVO> queryMyProject(ServletRequest request, @RequestBody PageableForm pageableForm){
+    public SimpleResponseVO queryMyProject(ServletRequest request, @RequestBody PageableForm pageableForm){
 
         OvalValidatorUtils.validate(pageableForm);
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return projectService.queryMyProject(userId, new PageableVO(pageableForm));
+        return SimpleResponseVO.OK(projectService.queryMyProject(userId, new PageableVO(pageableForm)));
 
     }
 
     @RequestMapping(value = "/{projectId}", method = RequestMethod.DELETE)
     @ApiOperation(value = "删除项目", response = boolean.class)
-    public boolean deleteProjectById(ServletRequest request, @PathVariable Long projectId){
+    public SimpleResponseVO deleteProjectById(ServletRequest request, @PathVariable Long projectId){
 
         long userId = UserIdUtils.praseUserIdFromRequest(request);
-        return projectService.deleteProjectById(userId, projectId);
+        return SimpleResponseVO.OK(projectService.deleteProjectById(userId, projectId));
 
     }
 

@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -32,6 +33,37 @@ public interface CardRepository extends PagingAndSortingRepository<CardEntity, L
      */
     Page<CardEntity> findByBelongProjectIdOrderByCreateTimeDesc(Long projectId, Pageable pageable);
 
+    /**
+     * 分页获取项目中没有map的卡片
+     * @param projectId
+     * @param pageable
+     * @return
+     */
+    Page<CardEntity> findByBelongProjectIdAndBelongFeatureIdIsNullAndBelongGroupIdIsNullOrderByCreateTimeDesc(Long projectId, Pageable pageable);
+
+    /**
+     * 根据featureId查询卡片
+     * @param featureId
+     * @return
+     */
+    boolean existsByBelongFeatureId(Long featureId);
+
+
+
+    /**
+     * 根据groupId查询卡片
+     * @param groupId
+     * @return
+     */
+    boolean existsByBelongGroupId(Long groupId);
+
+
+    /**
+     * 获取项目中已经map的卡片
+     * @param projectId
+     * @return
+     */
+    List<CardEntity> findByBelongProjectIdAndBelongFeatureIdIsNotNullAndBelongGroupIdIsNotNull(Long projectId);
 
 
 }

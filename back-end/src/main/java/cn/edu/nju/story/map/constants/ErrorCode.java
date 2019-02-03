@@ -119,8 +119,42 @@ public enum  ErrorCode {
     /**
      * 卡片不存在
      */
-    CARD_NOT_EXISTED(1005, "卡片已存在");
+    CARD_NOT_EXISTED(1007, "卡片不存在"),
 
+    /**
+     * epic不存在
+     */
+    EPIC_NOT_EXISTED(1008, "epic不存在"),
+
+    /**
+     * epic下存在feature
+     */
+    EPIC_CAN_NOT_DELETED(1009, "epic下存在feature，不可直接删除"),
+
+    /**
+     * 挂载节点不存在
+     */
+    FATHER_NOT_EXISTED(1010, "挂载节点不存在"),
+
+    /**
+     * group不存在
+     */
+    GROUP_NOT_EXISTED(1011, "group不存在"),
+
+    /**
+     * group下存在card
+     */
+    GROUP_CAN_NOT_DELETED(1012, "group下存在card，不可直接删除"),
+
+    /**
+     * 特性不存在
+     */
+    FEATURE_NOT_EXISTED(1013, "feature不存在"),
+
+    /**
+     * feature存在card
+     */
+    FEATURE_CAN_NOT_DELETED(1014, "feature下存在card，不可直接删除");
 
 
     private Integer code;

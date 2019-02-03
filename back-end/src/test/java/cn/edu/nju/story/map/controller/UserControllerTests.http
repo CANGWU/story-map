@@ -18,7 +18,7 @@ Content-Type: application/json
 ###
 
 
-GET http://localhost:9000/user/
+GET http://cangwu.art:9000/user/
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
 
 ###

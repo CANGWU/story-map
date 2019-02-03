@@ -57,5 +57,12 @@ public interface CardService {
     boolean modifyCard(Long userId, Long cardId, ModifyCardVO modifyCardVO);
 
 
-
+    /**
+     * 分页获取项目中的未映射的卡片
+     * @param userId
+     * @param projectId
+     * @param pageableVO
+     * @return
+     */
+    Page<CardVO> queryUnmapProjectCard(long userId, Long projectId, PageableVO pageableVO);
 }
