@@ -8,7 +8,7 @@ class CreateProjectContainer extends React.Component{
     handleCreate = () => {
         let auth = JSON.parse(localStorage.getItem('auth')) || {}
         if (this.state.name == '' || this.state.des == '' || this.state.sign == ''){
-            message.error('信息填写不全')
+            message.error('信息填写不全',0.5)
             return
         }
         API.query(baseURL + '/project/create', {
@@ -22,10 +22,10 @@ class CreateProjectContainer extends React.Component{
             if (json.code == 0){
                 this.props.fresh()
                 this.props.history.push('/index')
-                message.success('创建成功')
+                message.success('创建成功',0.5)
             }
             else{
-                message.error(json.data)
+                message.error(json.data,0.5)
             }
         })
     }

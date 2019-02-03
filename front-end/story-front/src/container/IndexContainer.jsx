@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Route, Link, Redirect } from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import React from 'react'
 import styles from './IndexContainer.scss'
 import { Icon, Dropdown, Input } from 'antd'
@@ -24,7 +24,7 @@ class IndexContainer extends React.Component{
         try {
             jwt = JSON.parse(localStorage.getItem('auth')) || {}
         } catch (e) { console.error(e) }
-        if (JSON.stringify(jwt) == '{}'){
+        if (JSON.stringify(jwt) === '{}'){
             this.props.history.push('/login')
         }
     }
@@ -33,12 +33,12 @@ class IndexContainer extends React.Component{
         try {
             jwt = JSON.parse(localStorage.getItem('auth')) || {}
         } catch (e) { console.error(e) }
-        if (JSON.stringify(jwt) == '{}'){
+        if (JSON.stringify(jwt) === '{}'){
             this.props.history.push('/login')
         }
     }
     fetchProjectList = () => {
-        let auth = JSON.parse(localStorage.getItem('auth')) || {}
+        // let auth = JSON.parse(localStorage.getItem('auth')) || {}
         API.query(baseURL + '/project/list/my', {
             method: 'POST',
             body: JSON.stringify({
@@ -46,7 +46,7 @@ class IndexContainer extends React.Component{
                 pageSize: 100,
             })
         }).then((json) => {
-            if (json.code == 0){
+            if (json.code === 0){
                 this.setState({
                     projectList: json.data.content,
                     currentProject: json.data.content.length !== 0 ? json.data.content[0] : {},
@@ -57,7 +57,7 @@ class IndexContainer extends React.Component{
     render(){
         let auth = JSON.parse(localStorage.getItem('auth')) || {}
         let projectContent= (<div className={styles.container}>
-            <Input placeholder="输入项目名" onChange={(e) => {this.setState({ projectFilter: e.target.value })}} value={this.state.projectFilter}/>
+            <Input placeholder="输入要搜索的项目名" onChange={(e) => {this.setState({ projectFilter: e.target.value })}} value={this.state.projectFilter}/>
             <div className={styles.pList}>
                 {
                     this.state.projectList.filter((v) => v.name.indexOf(this.state.projectFilter) >= 0).map((v, k) => {
