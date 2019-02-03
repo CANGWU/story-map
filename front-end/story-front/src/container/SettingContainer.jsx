@@ -20,7 +20,7 @@ class SettingContainer extends React.Component{
             API.query(baseURL + `/project/${this.props.project.id}`, {
                 method: 'GET',
             }).then((json) => {
-                if (json.code == 0){
+                if (json.code === 0){
                     this.setState({
                         name: json.data.name,
                         sign: json.data.sign,
@@ -35,7 +35,7 @@ class SettingContainer extends React.Component{
             API.query(baseURL + `/project/${nextProps.project.id}`, {
                 method: 'GET',
             }).then((json) => {
-                if (json.code == 0){
+                if (json.code === 0){
                     this.setState({
                         name: json.data.name,
                         sign: json.data.sign,
@@ -65,12 +65,12 @@ class SettingContainer extends React.Component{
                 sign: this.state.sign,
             })
         }).then((json) => {
-            if (json.code == 0){
-                message.success('修改成功')
+            if (json.code === 0){
+                message.success('修改成功',0.5)
                 this.props.fresh()
             }
             else {
-                message.error('修改失败，网络错误')
+                message.error('修改失败，网络错误',0.5)
             }
         })
     }
@@ -78,12 +78,12 @@ class SettingContainer extends React.Component{
         API.query( baseURL + `/project/${this.props.project.id}`, {
             method: 'DELETE',
         }).then((json) => {
-            if (json.code == 0){
-                message.success('删除成功')
+            if (json.code === 0){
+                message.success('删除成功',0.5)
                 this.props.fresh()
             }
             else {
-                message.error('删除失败，网络错误')
+                message.error('删除失败，网络错误',0.5)
             }
         })
     }
@@ -91,7 +91,7 @@ class SettingContainer extends React.Component{
         return <div className={styles.settingContainer}>
             <div className={styles.leftTab}>
                 <div className={styles.title}>所有配置</div>
-                <div className={styles.row} style={this.state.currentTab == 0 ? {backgroundColor: 'white', borderLeft: '6px solid #3798e9'} : null}>
+                <div className={styles.row} style={this.state.currentTab === 0 ? {backgroundColor: 'white', borderLeft: '6px solid #3798e9'} : null}>
                     <Icon type="project" />
                     <span>项目详情</span>
                 </div>
