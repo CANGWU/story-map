@@ -77,7 +77,6 @@ class LoginContainer extends React.Component{
             })
         }).then((res) => res.json()).then((json) => {
             if (json.code == 0){
-                console.log(json.data)
                 fetch('http://cangwu.art:9000/user/', {
                     method: 'GET',
                     headers: {
