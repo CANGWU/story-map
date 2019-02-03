@@ -216,8 +216,14 @@ public class MapServiceImpl implements MapService {
         ProjectEntity projectEntity = projectService.queryProjectAndCheckPrivilege(userId, projectId);
 
         List<Long> epicIndexList = Objects.isNull(projectEntity.getEpicIndexList()) ? new ArrayList<>() : JSON.parseArray(projectEntity.getEpicIndexList(), Long.class);
+//        if(Objects.isNull(epicIndexList)){
+//            epicIndexList = new ArrayList<>();
+//        }
 
         List<Long> groupIndexList = Objects.isNull(projectEntity.getGroupIndexList()) ? new ArrayList<>() : JSON.parseArray(projectEntity.getGroupIndexList(), Long.class);
+//        if(Objects.isNull(groupIndexList)){
+//            groupIndexList = new ArrayList<>();
+//        }
 
         List<EpicEntity> epicEntities = CollectionUtils.isEmpty(epicIndexList) ? new ArrayList<>() : StreamSupport.stream(epicRepository.findAllById(epicIndexList).spliterator(), true).collect(Collectors.toList());
 
@@ -230,6 +236,21 @@ public class MapServiceImpl implements MapService {
                     .groupList(groupEntities.stream().map(GroupVO::new).collect(Collectors.toList()))
                     .build();
         }
+
+        epicEntities.sort((o1, o2) -> {
+            int index1 = epicIndexList.indexOf(o1.getId());
+            int index2 = epicIndexList.indexOf(o2.getId());
+            return index1 - index2;
+        });
+
+        groupEntities.sort((o1, o2) -> {
+            int index1 = groupIndexList.indexOf(o1.getId());
+            int index2 = groupIndexList.indexOf(o2.getId());
+            return index1 - index2;
+        });
+
+
+
 
         List<Long> featureIds = new ArrayList<>();
 

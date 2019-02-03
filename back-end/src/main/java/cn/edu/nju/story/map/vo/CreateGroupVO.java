@@ -3,7 +3,10 @@ package cn.edu.nju.story.map.vo;
 import cn.edu.nju.story.map.form.CreateGroupForm;
 import cn.edu.nju.story.map.utils.BeanUtils;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
 
@@ -12,6 +15,9 @@ import net.sf.oval.constraint.NotNull;
  * @create 2019-01-30 22:28
  **/
 @Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CreateGroupVO {
 
     /**

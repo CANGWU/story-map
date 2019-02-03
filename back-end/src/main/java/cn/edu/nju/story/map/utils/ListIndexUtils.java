@@ -1,5 +1,8 @@
 package cn.edu.nju.story.map.utils;
 
+import com.alibaba.fastjson.JSON;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,10 +30,13 @@ public class ListIndexUtils {
             if(index == -1){
                 indexList.add(newResourceId);
             }else {
-                indexList.add(index, newResourceId);
+                indexList.add(index + 1, newResourceId);
             }
         }
     }
+
+
+
 
 
 }
