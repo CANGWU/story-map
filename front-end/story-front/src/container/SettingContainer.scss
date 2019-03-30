@@ -49,6 +49,7 @@
       display:flex;
       align-items:center;
       width:90%;
+      justify-content:space-between;
     }
     :local(.content){
       width:90%;
@@ -83,6 +84,7 @@
     }
     :local(.bottom){
       width:90%;
+      margin-bottom:10px;
       display:flex;
       align-items:center;
       justify-content:flex-end;

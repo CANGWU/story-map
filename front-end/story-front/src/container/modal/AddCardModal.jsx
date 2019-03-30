@@ -83,6 +83,7 @@ class AddCardModal extends React.Component{
             title={this.props.currentCard ? '编辑卡片' : '添加卡片'}
             onOk={this.handleOk}
             onCancel={this.handleCancel}
+            maskClosable={false}
         >
             <div className={styles.container}>
                 <div className={styles.row}>

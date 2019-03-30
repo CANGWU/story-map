@@ -212,7 +212,11 @@ class LoginContainer extends React.Component{
             {
                 this.state.registering ? this.renderRegister() : <div className={styles.content}>
                     <div className={styles.row}>
-                        <Input placeholder="邮箱" value={this.state.loginEmail} onChange={(e) => {this.setState({ loginEmail: e.target.value})}} />
+                        <Input placeholder="邮箱" value={this.state.loginEmail} onChange={(e) => {this.setState({ loginEmail: e.target.value})}} onKeyDown={(e) => {
+                            if (e.keyCode == 13){
+                                this.handleLogin()
+                            }
+                        }}/>
                         {
                             this.state.loginWarning && <span className={styles.warning}>登录名或密码错误</span>
                         }
