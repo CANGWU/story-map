@@ -8,16 +8,13 @@ import cn.edu.nju.story.map.repository.*;
 import cn.edu.nju.story.map.service.CardService;
 import cn.edu.nju.story.map.service.PermissionService;
 import cn.edu.nju.story.map.utils.BeanUtils;
-import cn.edu.nju.story.map.utils.ListIndexUtils;
 import cn.edu.nju.story.map.vo.*;
-import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -160,7 +157,7 @@ public class CardServiceImpl implements CardService {
     @Transactional
     public boolean deleteCardById(Long userId, Long cardId) {
 
-        CardEntity cardEntity = queryCardAndCheckPrivilege(userId, cardId);
+        queryCardAndCheckPrivilege(userId, cardId);
 
         cardRepository.deleteById(cardId);
 

@@ -2,7 +2,6 @@ package cn.edu.nju.story.map.service;
 
 import cn.edu.nju.story.map.vo.CommentVO;
 import cn.edu.nju.story.map.vo.PageableVO;
-import lombok.Data;
 import org.springframework.data.domain.Page;
 
 /**

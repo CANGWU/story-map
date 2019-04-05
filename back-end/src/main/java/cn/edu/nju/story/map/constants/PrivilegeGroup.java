@@ -1,6 +1,5 @@
 package cn.edu.nju.story.map.constants;
 
-import lombok.Data;
 import lombok.Getter;
 
 import java.util.Objects;

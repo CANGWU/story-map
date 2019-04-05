@@ -5,7 +5,6 @@ import net.sf.oval.constraint.MatchPattern;
 import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
 
-import java.util.regex.Pattern;
 
 /**
  * @author xuan

@@ -12,11 +12,9 @@ import cn.edu.nju.story.map.vo.SimpleResponseVO;
 import cn.edu.nju.story.map.vo.UserVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.ServletRequest;
-import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author xuan

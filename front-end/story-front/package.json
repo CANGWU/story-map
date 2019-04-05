@@ -5,6 +5,7 @@
   "dependencies": {
     "antd": "^3.12.3",
     "immutable": "^4.0.0-rc.12",
+    "node-sass": "^4.11.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-router": "^4.3.1",

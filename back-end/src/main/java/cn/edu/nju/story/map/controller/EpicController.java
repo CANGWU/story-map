@@ -1,7 +1,6 @@
 package cn.edu.nju.story.map.controller;
 
 import cn.edu.nju.story.map.form.CreateEpicForm;
-import cn.edu.nju.story.map.form.ModifyCardForm;
 import cn.edu.nju.story.map.form.ModifyEpicForm;
 import cn.edu.nju.story.map.service.EpicService;
 import cn.edu.nju.story.map.utils.OvalValidatorUtils;

@@ -2,12 +2,10 @@ package cn.edu.nju.story.map.form;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import lombok.NonNull;
 import net.sf.oval.constraint.NotBlank;
 import net.sf.oval.constraint.NotNull;
 import net.sf.oval.constraint.Range;
 
-import javax.persistence.Column;
 import java.sql.Timestamp;
 
 /**

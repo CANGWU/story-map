@@ -95,11 +95,10 @@ public class EpicServiceImpl implements EpicService {
             ProjectEntity projectEntity = projectEntityOptional.get();
             List<Long> epicIndexList = Objects.isNull(projectEntity.getEpicIndexList()) ? new ArrayList<>() : JSON.parseArray(projectEntity.getEpicIndexList(), Long.class);
 
-            if(!CollectionUtils.isEmpty(epicIndexList)){
-                if(epicIndexList.remove(epicId)){
-                    projectEntity.setEpicIndexList(JSON.toJSONString(epicIndexList));
-                    projectRepository.save(projectEntity);
-                }
+            if(!CollectionUtils.isEmpty(epicIndexList) && epicIndexList.remove(epicId)){
+
+                projectEntity.setEpicIndexList(JSON.toJSONString(epicIndexList));
+                projectRepository.save(projectEntity);
 
             }
 

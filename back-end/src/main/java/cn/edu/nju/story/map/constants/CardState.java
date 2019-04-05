@@ -1,6 +1,5 @@
 package cn.edu.nju.story.map.constants;
 
-import io.swagger.models.auth.In;
 import lombok.Getter;
 
 import java.util.Objects;

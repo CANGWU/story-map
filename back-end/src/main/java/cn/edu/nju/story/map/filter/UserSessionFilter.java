@@ -36,16 +36,12 @@ public class UserSessionFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         HttpServletRequest request = (HttpServletRequest) servletRequest;
-        HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         boolean isAllow = isAllowPath(request.getRequestURI(), request.getContextPath());
 
-        if(isAllow){
-        }else {
+        if(!isAllow){
             String jwt = request.getHeader("Authorization");
-            if(Objects.isNull(jwt)){
-//                throw new DefaultErrorException(ErrorCode.UNAUTHORIZED);
-            }else {
+            if(Objects.nonNull(jwt)){
                 try{
                     String userId = JwtGenerator.verifyJwt(jwt);
                     request.setAttribute(USER_ID_PARAMETER_NAME, userId);
