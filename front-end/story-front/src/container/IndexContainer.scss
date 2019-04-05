@@ -52,6 +52,7 @@
     :local(.right){
       display:flex;
       height:100%;
+      align-itmes:center;
       :local(.rightBox){
         height:100%;
         display:flex;
@@ -69,6 +70,22 @@
         i{
           font-size:12px;
           margin-left:5px;
+        }
+      }
+      :local(.mailBox){
+        animation:shining 0.5s;
+        animation-iteration-count: 5;
+        display:flex;
+        align-items:center;
+        cursor:pointer;
+        color:white;
+        margin-right:20px;
+        :local(.username){
+          font-size:16px;
+        }
+        i{
+          font-size:12px;
+          margin-right:5px;
         }
       }
     }
@@ -157,4 +174,35 @@
     }
   }
 
+}
+
+:local(.messageModal){
+  :local(.container){
+    min-height:300px;
+    overflow:auto;
+    :local(.inviteRow){
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:14px;
+      margin-bottom:10px;
+      :local(.projectName){
+        font-weight:500;
+        margin-left:10px;
+      }
+      :local(.agree){
+        color:rgb(55, 152, 233);
+        cursor:pointer;
+      }
+      :local(.refuse){
+        margin-left:10px;
+        color:red;
+        cursor:pointer;
+      }
+    }
+  }
+}
+@keyframes shining{
+  from {opacity: 0}
+  to {opacity: 1}
 }

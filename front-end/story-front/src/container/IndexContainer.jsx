@@ -1,7 +1,7 @@
 import { Redirect } from 'react-router-dom'
 import React from 'react'
 import styles from './IndexContainer.scss'
-import { Icon, Dropdown, Input } from 'antd'
+import { Icon, Dropdown, Input, Modal, message } from 'antd'
 import indexBg from '../resource/img/indexBg.png'
 import ProjectContainer from './ProjectContainer'
 import { baseURL, API } from '../config'
@@ -15,9 +15,11 @@ class IndexContainer extends React.Component{
         projectList: [],
         projectFilter: '',
         currentProject: {},
+        invites: [],
     }
     componentWillMount(){
         this.fetchProjectList()
+        this.fetchInviteInfo()
     }
     componentDidMount(){
         let jwt = {}
@@ -50,6 +52,21 @@ class IndexContainer extends React.Component{
                 this.setState({
                     projectList: json.data.content,
                     currentProject: json.data.content.length !== 0 ? json.data.content[0] : {},
+                })
+            }
+        })
+    }
+    fetchInviteInfo = () => {
+        API.query(baseURL + '/member/invite/my', {
+            method: 'POST',
+            body: JSON.stringify({
+                pageNumber: 0,
+                pageSize: 99,
+            })
+        }).then((json) => {
+            if (json.code == 0){
+                this.setState({
+                    invites: json.data.content,
                 })
             }
         })
@@ -97,6 +114,12 @@ class IndexContainer extends React.Component{
                     </div>
                 </div>
                 <div className={styles.right}>
+                    {
+                        this.state.invites.length !== 0 && <div className={styles.mailBox} onClick={() => { this.setState({ showMailModal: true })}}>
+                            <Icon type="mail" theme="filled" />
+                            <span className={styles.username}>{this.state.invites.length}条新信息</span>
+                        </div>
+                    }
                     <Dropdown
                         overlay={optContent}
                         overlayClassName={styles.optContent}
@@ -115,6 +138,58 @@ class IndexContainer extends React.Component{
                 <ProjectContainer fresh={this.fetchProjectList} project={this.state.currentProject}/>
                 {/*<Route path="/index" component={() => {return <ProjectContainer fresh={this.fetchProjectList} project={this.state.currentProject} />}}/>*/}
             </div>
+            {
+                this.state.showMailModal && <Modal
+                    visible
+                    title="我的消息"
+                    onCancel={() => {this.setState({ showMailModal: false})}}
+                    footer={null}
+                    width={500}
+                    wrapClassName={styles.messageModal}
+                >
+                    <div className={styles.container}>
+                        {
+                            this.state.invites.map((v) => {
+                                return <div className={styles.inviteRow}>
+                                    <div>
+                                        <span>您被邀请加入项目</span>
+                                        <span className={styles.projectName}>{v.projectName}</span>
+                                    </div>
+                                    <div className={styles.opt}>
+                                        <span className={styles.agree} onClick={() => {
+                                            API.query(baseURL + `/member/invite/agree?invitationId=${v.invitationId}`, {
+                                                method: 'POST',
+                                            }).then((json) => {
+                                                if (json.code == 0){
+                                                    message.success('操作成功', 0.5)
+                                                    this.fetchInviteInfo()
+                                                    this.fetchProjectList()
+                                                }
+                                                else {
+                                                    message.success('操作失败')
+                                                }
+                                            })
+                                        }}>同意</span>
+                                        <span className={styles.refuse} onClick={() => {
+                                            API.query(baseURL + `/member/invite/reject?invitationId=${v.invitationId}`, {
+                                                method: 'POST',
+                                            }).then((json) => {
+                                                if (json.code == 0){
+                                                    message.success('操作成功', 0.5)
+                                                    this.fetchInviteInfo()
+                                                }
+                                                else {
+                                                    message.success('操作失败')
+                                                }
+                                            })
+                                        }}>拒绝</span>
+                                    </div>
+                                </div>
+                            })
+                        }
+                    </div>
+                </Modal>
+            }
         </div>
     }
 }
