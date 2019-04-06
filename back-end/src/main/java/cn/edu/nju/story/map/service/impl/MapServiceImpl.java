@@ -78,6 +78,8 @@ public class MapServiceImpl implements MapService {
             epicIndexList = new ArrayList<>();
         }
 
+        epicIndexList.remove(epicId);
+
         ListIndexUtils.adjustIndexList(epicIndexList, targetLocationVO.getPrecursor(), epicEntity.getId());
 
         projectEntity.setEpicIndexList(JSON.toJSONString(epicIndexList));
