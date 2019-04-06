@@ -1,0 +1,20 @@
+:local(.inviteModal){
+  :local(.container){
+    display:flex;
+    flex-direction:column;
+    :local(.row){
+      display:flex;
+      padding-left:30px;
+      margin-bottom:20px;
+      align-items:center;
+      :local(.label){
+        width:60px;
+        flex-shrink:0;
+      }
+      .ant-input{
+        width:300px;
+        resize:none;
+      }
+    }
+  }
+}

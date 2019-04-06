@@ -104,11 +104,24 @@
     display:flex;
     flex-direction:column;
     align-items:center;
+    max-height:300px;
+    overflow:auto;
     .ant-input{
       height:30px;
       margin-top:15px;
-      margin-bottom:15px;
+      margin-bottom:5px;
       width:180px;
+      flex-shrink:0;
+    }
+    :local(.text){
+      display:flex;
+      align-items:center;
+      padding-left:15px;
+      padding-right:15px;
+      height:30px;
+      width:100%;
+      border-bottom:1px solid #e9e9e9;
+      flex-shrink:0;
     }
     :local(.pList){
       display:flex;
@@ -117,6 +130,8 @@
       padding-left:5px;
       padding-right:5px;
       padding-bottom:10px;
+      flex-shrink:0;
+
       :local(.pRow){
         height:30px;
         width:100%;
@@ -142,6 +157,7 @@
       font-size:15px;
       z-index:1;
       cursor:pointer;
+      flex-shrink:0;
       &:hover{
         background-color:#3798e9;
         color:white;

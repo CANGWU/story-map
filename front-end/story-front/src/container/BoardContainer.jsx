@@ -29,9 +29,24 @@ class BoardContainer extends React.Component{
         belongGroupId: -1,
         currentCard: null,
         cardCursor: -1, //新增卡片时的位置
+        moveX: 0,
+        moveY: 0,
+        originX: 0,
+        originY: 0,
+        deltaX: 0,
+        deltaY: 0,
+        isPressed: false,
+        moveItem: null,
+        moveEpic: null,
+        mouseInColumn: -2, //-1被占用
+        moveType: '',
     }
     componentWillMount(){
         this.fetchDetail()
+    }
+    componentDidMount(){
+        window.addEventListener('mousemove', this.handleMouseMove)
+        window.addEventListener('mouseup', this.handleMouseUp)
     }
     componentDidUpdate(){
         //动态更新block底部border的长度
@@ -92,7 +107,8 @@ class BoardContainer extends React.Component{
         })
     }
     // 在右侧新建Epic
-    handleAddEpic = (k) => {
+    handleAddEpic = (k, e) => {
+        e.stopPropagation()
         let tmp = fromJS(this.state.epicList).toJS()
         tmp.splice(k + 1, 0, {
             featureList:[],
@@ -103,7 +119,8 @@ class BoardContainer extends React.Component{
             epicList: tmp
         })
     }
-    handleDeleteEpic = (epic) => {
+    handleDeleteEpic = (epic, e) => {
+        e.stopPropagation()
         API.query(baseURL + `/epic/${epic.id}`, {
             method :'DELETE',
         }).then((json) => {
@@ -336,6 +353,115 @@ class BoardContainer extends React.Component{
             }
         })
     }
+
+    handleMouseMove = ({pageX, pageY}) => {
+        let {
+            isPressed,
+            deltaX,
+            deltaY,
+        } = this.state
+        if (isPressed){
+            let x = pageX - this.scrollRef.offsetLeft - deltaX
+            let y = pageY - this.scrollRef.offsetTop - deltaY
+            this.setState({
+                moveX: x,
+                moveY: y,
+            })
+        }
+    }
+    handleMouseUp = () => {
+        let { isPressed, moveItem, moveEpic, epicList, mouseInColumn, moveType } = this.state
+        if (moveType === 'epic'){
+            if (isPressed && moveItem.id !== mouseInColumn && mouseInColumn !== -2 ){
+                let precursor = null
+                epicList.map((v, k) => {
+                    if (v.id === mouseInColumn){
+                        if (k === 0){
+                            precursor = null
+                        }
+                        else {
+                            if (mouseInColumn > moveItem.id){
+                                precursor = mouseInColumn
+                            }
+                            else {
+                                precursor = epicList[k - 1].id
+                            }
+                        }
+                    }
+                })
+                API.query(baseURL + `/map/epic/move/${moveItem.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        precursor: precursor,
+                    })
+                }).then((json) => {
+                    this.fetchDetail()
+                })
+            }
+        }
+        if (moveType === 'feature'){
+            if (isPressed && moveEpic.id !== mouseInColumn && mouseInColumn !== -2){
+                let tmp = epicList.filter((v) => v.id == mouseInColumn)[0].featureList
+                API.query(baseURL + `/map/feature/move/${moveItem.id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        targetEpicId: mouseInColumn,
+                        precursor: tmp.length == 0 ? null : tmp.length,
+                    })
+                }).then((json) => {
+                    this.fetchDetail()
+                })
+            }
+        }
+        this.setState({
+            moveX: this.state.originX,
+            moveY: this.state.originY,
+            originX: 0,
+            originY: 0,
+            deltaX: 0,
+            deltaY: 0,
+            isPressed: false,
+            mouseInColumn: -2,
+            moveItem: null,
+            moveEpic: null,
+            moveType: '',
+        })
+    }
+    handleMouseDown = (moveItem, moveType, e) => {
+        const deltaX = e.pageX - this.scrollRef.offsetLeft - e.currentTarget.offsetLeft
+        const deltaY = e.pageY - this.scrollRef.offsetTop - e.currentTarget.offsetTop
+        const moveX = e.currentTarget.offsetLeft
+        const moveY = e.currentTarget.offsetTop
+        this.setState({
+            moveX, //移动中的鼠标
+            moveY,
+            deltaX, //鼠标与边框的相对位置
+            deltaY,
+            originX: e.currentTarget.offsetLeft,
+            originY: e.currentTarget.offsetTop,
+            isPressed: true,
+            moveItem,
+            moveType,
+        })
+    }
+    handleMoveFeature = (moveEpic, moveItem, moveType, e) => {
+        const deltaX = e.pageX - this.scrollRef.offsetLeft - e.currentTarget.offsetLeft
+        const deltaY = e.pageY - this.scrollRef.offsetTop - e.currentTarget.offsetTop
+        const moveX = e.currentTarget.offsetLeft
+        const moveY = e.currentTarget.offsetTop
+        this.setState({
+            moveX, //移动中的鼠标
+            moveY,
+            deltaX, //鼠标与边框的相对位置
+            deltaY,
+            originX: e.currentTarget.offsetLeft,
+            originY: e.currentTarget.offsetTop,
+            isPressed: true,
+            moveItem,
+            moveEpic,
+            moveType,
+        })
+    }
     render(){
         let { epicList, groupList } = this.state
         let groupOpt = (group, key) => (<div className={styles.optContainer}>
@@ -379,7 +505,10 @@ class BoardContainer extends React.Component{
                                         />
                                     </div>
                                 </div> :
-                                <div className={styles.column} key={k}>
+                                <div className={styles.column} key={k}
+                                     onMouseEnter={() => {if (this.state.isPressed && this.state.moveItem.id !== t.id){ this.setState({ mouseInColumn: t.id })}}}
+                                     onMouseLeave={() => {if (this.state.isPressed && this.state.moveItem.id !== t.id){this.setState({ mouseInColumn: -2 })}}}
+                                     style={ this.state.mouseInColumn === t.id ? {opacity: 0.5, backgroundColor: '#4a4a4a'} : {}}>
                                     {
                                         this.state.renameEpic == t.id ? <div className={styles.titleBlock}>
                                              <textarea
@@ -392,13 +521,14 @@ class BoardContainer extends React.Component{
                                             this.setState({showEpicBottom: t.id})
                                         }} onMouseLeave={() => {
                                             this.setState({showEpicBottom: -1})
-                                        }}>
+                                        }} onMouseDown={this.handleMouseDown.bind(null, t, 'epic' )} style={{ opacity: (this.state.moveItem && t.id === this.state.moveItem.id) ? 0.5 : 1 }}
+                                        >
                                             <span className={styles.name} title={t.name}>{t.name}</span>
                                             {
                                                 this.state.showEpicBottom == t.id && <div className={styles.bottom}>
                                                     <Icon type="delete" title="删除"
                                                           onClick={this.handleDeleteEpic.bind(this, t)}/>
-                                                    <Icon type="edit" title="重命名" onClick={() => {this.setState({ renameEpic: t.id, editingEpic: t.name })}}/>
+                                                    <Icon type="edit" title="重命名" onClick={(e) => {e.stopPropagation();this.setState({ renameEpic: t.id, editingEpic: t.name })}}/>
                                                     <Icon type="right-circle" title="在右侧新建"
                                                           onClick={this.handleAddEpic.bind(this, k)}/>
                                                 </div>
@@ -472,7 +602,9 @@ class BoardContainer extends React.Component{
                                                                          this.setState({showFeatureBottom: f.id})
                                                                      }} onMouseLeave={() => {
                                                                     this.setState({showFeatureBottom: -1})
-                                                                }}>
+                                                                }}
+                                                                     onMouseDown={this.handleMoveFeature.bind(null, t, f, 'feature' )}
+                                                                >
                                                                 <span className={styles.name}
                                                                       title={f.name}>{f.name}</span>
                                                                     {
@@ -624,7 +756,11 @@ class BoardContainer extends React.Component{
                         })
                     }
                 </div>
-
+                {
+                    this.state.moveItem && <div className={styles.moveItem} style={{ left: this.state.moveX, top: this.state.moveY, boxShadow: 'rgba(0,0,0,0.2) 0px 16px 32px 0px', borderRadius: '3px' }}>
+                        <span className={styles.name} >{this.state.moveItem.name}</span>
+                    </div>
+                }
             </div>
             {
                 this.state.showCardModal && <AddCardModal

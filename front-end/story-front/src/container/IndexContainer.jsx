@@ -13,6 +13,7 @@ class IndexContainer extends React.Component{
         showOptPopover: false,
         localStorage: localStorage,
         projectList: [],
+        joinList: [],
         projectFilter: '',
         currentProject: {},
         invites: [],
@@ -50,9 +51,23 @@ class IndexContainer extends React.Component{
         }).then((json) => {
             if (json.code === 0){
                 this.setState({
-                    projectList: json.data.content,
+                    projectList: json.data.content || [],
                     currentProject: json.data.content.length !== 0 ? json.data.content[0] : {},
                 })
+                API.query(baseURL + '/project/list/joined', {
+                    method: 'POST',
+                    body: JSON.stringify({
+                        pageNumber: 0,
+                        pageSize: 100,
+                    })
+                }).then((res) => {
+                    if (res.code == 0){
+                        this.setState({
+                            joinList: res.data.content || [],
+                        })
+                    }
+                })
+
             }
         })
     }
@@ -75,9 +90,18 @@ class IndexContainer extends React.Component{
         let auth = JSON.parse(localStorage.getItem('auth')) || {}
         let projectContent= (<div className={styles.container}>
             <Input placeholder="输入要搜索的项目名" onChange={(e) => {this.setState({ projectFilter: e.target.value })}} value={this.state.projectFilter}/>
-            <div className={styles.pList}>
+            <div className={styles.text}>我创建的项目</div>
+            <div className={styles.pList} style={{ borderBottom: '1px solid #e9e9e9' }}>
                 {
                     this.state.projectList.filter((v) => v.name.indexOf(this.state.projectFilter) >= 0).map((v, k) => {
+                        return <div className={styles.pRow} key={k} onClick={() => {this.setState({ currentProject: v, showProjectPopover: false })}}>{v.name}</div>
+                    })
+                }
+            </div>
+            <div className={styles.text}>我参加的项目</div>
+            <div className={styles.pList} >
+                {
+                    this.state.joinList.filter((v) => v.name.indexOf(this.state.projectFilter) >= 0).map((v, k) => {
                         return <div className={styles.pRow} key={k} onClick={() => {this.setState({ currentProject: v, showProjectPopover: false })}}>{v.name}</div>
                     })
                 }
