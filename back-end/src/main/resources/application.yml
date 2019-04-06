@@ -3,7 +3,7 @@ spring:
     name: story-map
   datasource:
       username: root
-      password: xuan
+      password: Xuan_root_123
       url: jdbc:mysql://localhost:3306/story_map
       driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
@@ -31,7 +31,7 @@ spring:
 
 server:
   port: 9000
-  url: http://localhost:9000/
+  url: http://cangwu:3000/
 
 
 

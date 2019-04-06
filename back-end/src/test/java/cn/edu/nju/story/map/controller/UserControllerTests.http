@@ -10,9 +10,9 @@ POST http://localhost:9000/user/register
 Content-Type: application/json
 
 {
-  "username": "hdx",
+  "username": "xuan",
   "password": "a12345",
-  "email": "1533704796@qq.com"
+  "email": "1425296454@qq.com"
 }
 
 ###
@@ -39,7 +39,7 @@ GET http://localhost:9000/user/verify?code=4gG6hi
 ###
 
 
-POST http://localhost:9000/user/search_by_email?email=1533704796@qq.com
+POST http://localhost:9000/user/search_by_email?email=1425296454@qq.com
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
 

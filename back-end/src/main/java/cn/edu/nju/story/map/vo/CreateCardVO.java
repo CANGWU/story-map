@@ -2,7 +2,6 @@ package cn.edu.nju.story.map.vo;
 
 import cn.edu.nju.story.map.form.CreateCardForm;
 import cn.edu.nju.story.map.utils.BeanUtils;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,8 +1,6 @@
 package cn.edu.nju.story.map.utils;
 
-import com.alibaba.fastjson.JSON;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,6 +12,9 @@ import java.util.Objects;
  */
 public class ListIndexUtils {
 
+    private ListIndexUtils(){
+
+    }
 
     /**
      * 调整列表的顺序

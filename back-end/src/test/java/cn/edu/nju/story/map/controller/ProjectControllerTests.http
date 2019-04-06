@@ -24,20 +24,20 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3
 ###
 
 
-PUT http://localhost:9000/project/10
+PUT http://localhost:9000/project/5
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OA.gAy5dOoVxri9wruiyFhxejrNpNIithQNqkicw8sLQj0
 
 {
-  "name": "story-map",
-  "sign": "story-map"
+  "name": "story-mapK",
+  "sign": "story-mapK"
 }
 
 ###
 
 POST http://localhost:9000/project/list/joined
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OA.gAy5dOoVxri9wruiyFhxejrNpNIithQNqkicw8sLQj0
 
 {
   "pageSize":20,

@@ -4,7 +4,6 @@ import cn.edu.nju.story.map.constants.ErrorCode;
 import cn.edu.nju.story.map.exception.DefaultErrorException;
 import cn.edu.nju.story.map.service.InvitationCodeService;
 import cn.edu.nju.story.map.utils.RandomValueStringGenerator;
-import org.springframework.security.jwt.JwtHelper;
 import org.springframework.stereotype.Service;
 
 import java.util.Objects;

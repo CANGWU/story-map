@@ -18,6 +18,8 @@ public class UserIdUtils {
 
     public static final String USER_ID_PARAMETER_NAME = "current_user_id";
 
+    private UserIdUtils(){}
+
     /**
      * 从请求头中获取用户Id
      * @param request

@@ -70,7 +70,7 @@ public class ExceptionResolverConfig extends SimpleMappingExceptionResolver {
             map.put("data", ex.getMessage());
             response.getWriter().write(objectMapper.writeValueAsString(map));
         } catch (Exception ignore) {
-
+            logger.error("Something happened in wrap ex！");
         }
         logger.error(url, ex);
         return new ModelAndView();

@@ -5,9 +5,12 @@
 # * 'ptr' and 'ptrp' create a POST request with a simple or parameter-like body;
 # * 'mptr' and 'fptr' create a POST request to submit a form with a text or file field (multipart/form-data);
 
+# hdx eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+# xuan eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OA.gAy5dOoVxri9wruiyFhxejrNpNIithQNqkicw8sLQj0
+
 POST http://localhost:9000/member/invite/my
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OA.gAy5dOoVxri9wruiyFhxejrNpNIithQNqkicw8sLQj0
 
 {
   "pageSize":20,
@@ -16,20 +19,20 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3
 
 ###
 
-POST http://localhost:9000/member/invite?projectId=12
+POST http://localhost:9000/member/invite?projectId=5
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
 
 [
   {
     "privilegeGroup": 0,
-    "userId": 1
+    "userId": 8
   }
 ]
 
 ###
 
-GET http://localhost:9000/member/list?projectId=12
+GET http://localhost:9000/member/list?projectId=5
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
 
@@ -37,16 +40,16 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3
 ###
 
 
-GET http://localhost:9000/member/invite/list?projectId=12
+GET http://localhost:9000/member/invite/list?projectId=5
 Content-Type: application/json
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
 
 ###
 
 
-POST http://localhost:9000/member/invite/agree?invitationId=14
+POST http://localhost:9000/member/invite/agree?invitationId=9
 Content-Type: application/json
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.MQ.k31QVgnnMRQOyHh4XeX0yPN-3EpUFMgzwyjSdcgfink
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.OA.gAy5dOoVxri9wruiyFhxejrNpNIithQNqkicw8sLQj0
 
 {}
 

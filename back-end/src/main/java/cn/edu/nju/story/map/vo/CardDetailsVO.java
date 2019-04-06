@@ -4,9 +4,6 @@ import cn.edu.nju.story.map.entity.CardEntity;
 import cn.edu.nju.story.map.utils.BeanUtils;
 import lombok.Data;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.sql.Timestamp;
 
 /**

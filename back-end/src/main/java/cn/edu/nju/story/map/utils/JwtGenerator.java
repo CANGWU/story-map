@@ -1,6 +1,5 @@
 package cn.edu.nju.story.map.utils;
 
-import com.alibaba.fastjson.JSON;
 import org.springframework.security.jwt.Jwt;
 import org.springframework.security.jwt.JwtHelper;
 import org.springframework.security.jwt.crypto.sign.MacSigner;
@@ -41,14 +40,5 @@ public class JwtGenerator {
         return JwtHelper.decodeAndVerify(jwt, SIGNER).getClaims();
     }
 
-
-    public static void main(String[]args){
-
-        String jwt = "fdafasa";
-
-        System.out.println(JwtGenerator.verifyJwt(jwt));
-
-
-    }
 
 }

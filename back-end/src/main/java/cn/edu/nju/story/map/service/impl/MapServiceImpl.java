@@ -61,7 +61,6 @@ public class MapServiceImpl implements MapService {
 
 
         // 只有一种移动方式，即epic之间的前后顺序
-
         EpicEntity epicEntity = epicService.queryEpicAndCheckPrivilege(userId, epicId);
 
         // 删除project中的序列
@@ -216,14 +215,8 @@ public class MapServiceImpl implements MapService {
         ProjectEntity projectEntity = projectService.queryProjectAndCheckPrivilege(userId, projectId);
 
         List<Long> epicIndexList = Objects.isNull(projectEntity.getEpicIndexList()) ? new ArrayList<>() : JSON.parseArray(projectEntity.getEpicIndexList(), Long.class);
-//        if(Objects.isNull(epicIndexList)){
-//            epicIndexList = new ArrayList<>();
-//        }
 
         List<Long> groupIndexList = Objects.isNull(projectEntity.getGroupIndexList()) ? new ArrayList<>() : JSON.parseArray(projectEntity.getGroupIndexList(), Long.class);
-//        if(Objects.isNull(groupIndexList)){
-//            groupIndexList = new ArrayList<>();
-//        }
 
         List<EpicEntity> epicEntities = CollectionUtils.isEmpty(epicIndexList) ? new ArrayList<>() : StreamSupport.stream(epicRepository.findAllById(epicIndexList).spliterator(), true).collect(Collectors.toList());
 

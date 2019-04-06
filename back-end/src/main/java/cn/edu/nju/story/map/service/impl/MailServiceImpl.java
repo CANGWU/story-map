@@ -7,6 +7,7 @@ import cn.edu.nju.story.map.exception.DefaultErrorException;
 import cn.edu.nju.story.map.repository.UserRepository;
 import cn.edu.nju.story.map.service.InvitationCodeService;
 import cn.edu.nju.story.map.service.MailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -16,8 +17,6 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
-import org.thymeleaf.templateresource.ClassLoaderTemplateResource;
-
 import javax.annotation.PostConstruct;
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -31,6 +30,7 @@ import java.util.Optional;
  * @create 2019-01-15 10:19
  **/
 @Service
+@Slf4j
 public class MailServiceImpl implements MailService {
 
 
@@ -76,6 +76,7 @@ public class MailServiceImpl implements MailService {
             helper.setText(processEmailTemplate(params, "IStoryInvitation"), true);
             javaMailSender.send(mimeMessage);
         } catch (MessagingException ignore) {
+            log.error("Something error existed in sending email!");
         }
 
     }
