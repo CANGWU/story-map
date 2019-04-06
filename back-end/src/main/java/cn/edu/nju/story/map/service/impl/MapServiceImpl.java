@@ -151,6 +151,10 @@ public class MapServiceImpl implements MapService {
 
             epicRepository.saveAll(Arrays.asList(beforeEpic, targetEpic));
 
+            featureEntity.setBelongEpicId(targetEpic.getId());
+
+            featureRepository.save(featureEntity);
+
         }
 
         return true;
